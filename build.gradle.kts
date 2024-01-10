@@ -6,6 +6,7 @@ plugins {
 
     kotlin("jvm") version "1.9.21"
     kotlin("plugin.spring") version "1.9.21"
+    kotlin("plugin.jpa") version "1.9.21"
 }
 
 group = "com.mikes"
@@ -22,8 +23,13 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+    runtimeOnly("org.postgresql:postgresql:42.6.0")
+    runtimeOnly("com.zaxxer:HikariCP:5.0.1")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
@@ -33,6 +39,10 @@ tasks.withType<KotlinCompile> {
         freeCompilerArgs += "-Xjsr305=strict"
         jvmTarget = "17"
     }
+}
+
+tasks.bootJar {
+    archiveFileName.set("${archiveBaseName.get()}.${archiveExtension.get()}")
 }
 
 tasks.withType<Test> {
