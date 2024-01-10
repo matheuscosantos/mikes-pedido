@@ -1,6 +1,5 @@
 package com.mikes.pedido.application.core.usecase.customer
 
-import br.com.fiap.mikes.util.mapFailure
 import com.mikes.pedido.application.core.domain.customer.Customer
 import com.mikes.pedido.application.core.domain.customer.valueobject.Cpf
 import com.mikes.pedido.application.core.usecase.exception.customer.CustomerNotFoundException
@@ -9,6 +8,7 @@ import com.mikes.pedido.application.mapper.customer.CustomerDomainMapper
 import com.mikes.pedido.application.port.inbound.customer.FindCustomerService
 import com.mikes.pedido.application.port.outbound.customer.CustomerRepository
 import com.mikes.pedido.application.port.outbound.customer.dto.CustomerOutboundResponse
+import com.mikes.pedido.util.mapFailure
 import kotlin.Result.Companion.failure
 
 class FindCustomerUseCase(

@@ -12,8 +12,9 @@ enum class ProductCategory(val value: String) {
     ;
 
     companion object {
-        fun new(value: String): Result<ProductCategory> = values().firstOrNull { it.value == value }
-            ?.let { success(it) }
-            ?: failure(InvalidProductCategoryException("$value is not a valid ProductCategory."))
+        fun new(value: String): Result<ProductCategory> =
+            entries.firstOrNull { it.value == value }
+                ?.let { success(it) }
+                ?: failure(InvalidProductCategoryException("$value is not a valid ProductCategory."))
     }
 }

@@ -13,8 +13,9 @@ enum class OrderStatus(val value: String) {
 
     companion object {
         fun findByValue(value: String): Result<OrderStatus> {
-            val orderStatus = values().firstOrNull { it.value == value }
-                ?: return failure(InvalidOrderStatusException("Invalid Order Status: '$value'."))
+            val orderStatus =
+                entries.firstOrNull { it.value == value }
+                    ?: return failure(InvalidOrderStatusException("Invalid Order Status: '$value'."))
 
             return success(orderStatus)
         }

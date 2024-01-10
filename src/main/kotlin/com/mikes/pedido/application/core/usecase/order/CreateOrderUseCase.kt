@@ -1,8 +1,6 @@
 package com.mikes.pedido.application.core.usecase.order
 
 import br.com.fiap.mikes.application.core.domain.order.valueobject.OrderItemId
-import br.com.fiap.mikes.util.flatMap
-import br.com.fiap.mikes.util.mapFailure
 import com.mikes.pedido.application.core.domain.customer.valueobject.Cpf
 import com.mikes.pedido.application.core.domain.exception.order.InvalidOrderStatusException
 import com.mikes.pedido.application.core.domain.order.Order
@@ -19,6 +17,8 @@ import com.mikes.pedido.application.port.inbound.order.dto.CreateOrderItemInboun
 import com.mikes.pedido.application.port.inbound.product.FindProductService
 import com.mikes.pedido.application.port.outbound.order.OrderRepository
 import com.mikes.pedido.application.port.outbound.order.dto.OrderOutboundResponse
+import com.mikes.pedido.util.flatMap
+import com.mikes.pedido.util.mapFailure
 import java.time.LocalDateTime
 import kotlin.Result.Companion.failure
 import kotlin.Result.Companion.success

@@ -44,7 +44,7 @@ class OrderController(
     fun updateStatus(
         @PathVariable id: String,
         @RequestBody updateOrderStatusRequest: UpdateOrderStatusRequest,
-    ): ResponseEntity<OrderDto> {
+    ): ResponseEntity<OrderDto> { // todo : virar listener?
         return updateOrderStatusService.update(id, updateOrderStatusRequest.toInbound())
             .map { OrderDto.from(it) }
             .map { ResponseEntity.ok(it) }

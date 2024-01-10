@@ -1,4 +1,4 @@
-package br.com.fiap.mikes.util
+package com.mikes.pedido.util
 
 fun <T, R> Result<T>.flatMap(transform: (T) -> Result<R>): Result<R> {
     return fold(

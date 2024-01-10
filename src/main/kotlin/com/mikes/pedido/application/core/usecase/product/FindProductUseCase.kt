@@ -1,6 +1,5 @@
 package com.mikes.pedido.application.core.usecase.product
 
-import br.com.fiap.mikes.util.mapFailure
 import com.mikes.pedido.application.core.domain.product.Product
 import com.mikes.pedido.application.core.domain.product.valueobject.ProductCategory
 import com.mikes.pedido.application.core.domain.product.valueobject.ProductId
@@ -10,6 +9,7 @@ import com.mikes.pedido.application.mapper.product.ProductDomainMapper
 import com.mikes.pedido.application.port.inbound.product.FindProductService
 import com.mikes.pedido.application.port.outbound.product.ProductRepository
 import com.mikes.pedido.application.port.outbound.product.dto.ProductOutboundResponse
+import com.mikes.pedido.util.mapFailure
 import kotlin.Result.Companion.failure
 import kotlin.Result.Companion.success
 

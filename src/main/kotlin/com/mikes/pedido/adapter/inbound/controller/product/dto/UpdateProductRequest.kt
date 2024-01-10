@@ -4,7 +4,6 @@ import com.mikes.pedido.application.port.inbound.product.dto.UpdateProductInboun
 import java.math.BigDecimal
 
 data class UpdateProductRequest(
-    val id: Long,
     val name: String,
     val description: String,
     val price: BigDecimal,

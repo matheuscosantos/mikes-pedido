@@ -1,6 +1,5 @@
 package com.mikes.pedido.application.core.usecase.product
 
-import br.com.fiap.mikes.util.mapFailure
 import com.mikes.pedido.application.core.domain.product.Product
 import com.mikes.pedido.application.core.domain.product.valueobject.ProductId
 import com.mikes.pedido.application.core.usecase.exception.product.InvalidProductStateException
@@ -9,6 +8,7 @@ import com.mikes.pedido.application.port.inbound.product.CreateProductService
 import com.mikes.pedido.application.port.inbound.product.dto.CreateProductInboundRequest
 import com.mikes.pedido.application.port.outbound.product.ProductRepository
 import com.mikes.pedido.application.port.outbound.product.dto.ProductOutboundResponse
+import com.mikes.pedido.util.mapFailure
 import java.time.LocalDateTime
 import kotlin.Result.Companion.failure
 

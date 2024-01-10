@@ -1,7 +1,5 @@
 package com.mikes.pedido.application.core.usecase.order
 
-import br.com.fiap.mikes.util.flatMap
-import br.com.fiap.mikes.util.mapFailure
 import com.mikes.pedido.application.core.domain.order.Order
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderId
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderStatus
@@ -12,6 +10,8 @@ import com.mikes.pedido.application.port.inbound.order.UpdateOrderStatusService
 import com.mikes.pedido.application.port.inbound.order.dto.UpdateOrderStatusInboundRequest
 import com.mikes.pedido.application.port.outbound.order.OrderRepository
 import com.mikes.pedido.application.port.outbound.order.dto.OrderOutboundResponse
+import com.mikes.pedido.util.flatMap
+import com.mikes.pedido.util.mapFailure
 import kotlin.Result.Companion.failure
 
 class UpdateOrderStatusUseCase(
