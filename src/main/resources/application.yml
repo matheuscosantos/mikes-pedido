@@ -18,3 +18,15 @@ management:
     web:
       exposure:
         include: health
+
+cloud:
+  aws:
+    region:
+      static: us-east-2
+    credentials:
+      accessKey: todoooooooo
+      secretKey: todoooooooo
+
+sns:
+  orderReceived:
+    topicName: todoooooooo

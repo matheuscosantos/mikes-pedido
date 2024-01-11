@@ -13,6 +13,7 @@ import com.mikes.pedido.application.port.inbound.order.CreateOrderService
 import com.mikes.pedido.application.port.inbound.order.FindOrderService
 import com.mikes.pedido.application.port.inbound.order.UpdateOrderStatusService
 import com.mikes.pedido.application.port.inbound.product.FindProductService
+import com.mikes.pedido.application.port.outbound.order.OrderReceivedMessenger
 import com.mikes.pedido.application.port.outbound.order.OrderRepository
 import jakarta.transaction.Transactional
 import org.springframework.context.annotation.Bean
@@ -44,12 +45,14 @@ class OrderPortsInstantiationConfig {
         orderDomainMapper: OrderDomainMapper,
         findCustomerService: FindCustomerService,
         findProductService: FindProductService,
+        orderReceivedMessenger: OrderReceivedMessenger,
     ): CreateOrderService {
         return CreateOrderUseCase(
             orderRepository,
             orderDomainMapper,
             findCustomerService,
             findProductService,
+            orderReceivedMessenger,
         )
     }
 

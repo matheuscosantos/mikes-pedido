@@ -15,8 +15,10 @@ import com.mikes.pedido.application.port.inbound.order.CreateOrderService
 import com.mikes.pedido.application.port.inbound.order.dto.CreateOrderInboundRequest
 import com.mikes.pedido.application.port.inbound.order.dto.CreateOrderItemInboundRequest
 import com.mikes.pedido.application.port.inbound.product.FindProductService
+import com.mikes.pedido.application.port.outbound.order.OrderReceivedMessenger
 import com.mikes.pedido.application.port.outbound.order.OrderRepository
 import com.mikes.pedido.application.port.outbound.order.dto.OrderOutboundResponse
+import com.mikes.pedido.application.port.outbound.order.dto.OrderReceivedMessage
 import com.mikes.pedido.util.flatMap
 import com.mikes.pedido.util.mapFailure
 import java.time.LocalDateTime
@@ -28,11 +30,12 @@ class CreateOrderUseCase(
     private val orderDomainMapper: OrderDomainMapper,
     private val findCustomerService: FindCustomerService,
     private val findProductService: FindProductService,
+    private val orderReceivedMessenger: OrderReceivedMessenger,
 ) : CreateOrderService {
     override fun create(createOrderInboundRequest: CreateOrderInboundRequest): Result<Order> {
         return createOrder(createOrderInboundRequest)
             .flatMap { saveOrder(it) }
-        // .onSuccess { createOrderPaymentService.execute(it.id) } // todo posta mensagerm
+            .onSuccess { notifyOrderReceived(it) }
     }
 
     private fun createOrder(createOrderInboundRequest: CreateOrderInboundRequest): Result<Order> {
@@ -104,5 +107,15 @@ class CreateOrderUseCase(
 
     private fun OrderOutboundResponse.toOrder(): Result<Order> {
         return orderDomainMapper.new(this)
+    }
+
+    private fun notifyOrderReceived(order: Order) {
+        val message =
+            OrderReceivedMessage(
+                order.id.value,
+                order.price.value,
+            )
+
+        orderReceivedMessenger.send(message)
     }
 }
