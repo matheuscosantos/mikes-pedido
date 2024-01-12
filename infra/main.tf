@@ -64,15 +64,15 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
 # -- service
 
 data "aws_ecs_cluster" "ecs_cluster" {
-  cluster_name = "${var.name}_cluster"
+  cluster_name = "${var.infra_name}_cluster"
 }
 
 data "aws_security_group" "security_group" {
-  name  = "${var.name}_security_group"
+  name  = "${var.infra_name}_security_group"
 }
 
 data "aws_lb_target_group" "lb_target_group" {
-  name = "${var.name}-lb-target-group"
+  name = "${var.infra_name}-lb-target-group"
 }
 
 resource "aws_ecs_service" "ecs_service" {

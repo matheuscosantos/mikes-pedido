@@ -3,6 +3,11 @@ variable "region" {
   default = "us-east-2"
 }
 
+variable "infra_name" {
+  type    = string
+  default = "mikes"
+}
+
 variable "name" {
   type    = string
   default = "mikes-pedido"
