@@ -19,14 +19,8 @@ management:
       exposure:
         include: health
 
-cloud:
-  aws:
-    region:
-      static: us-east-2
-    credentials:
-      accessKey: todoooooooo
-      secretKey: todoooooooo
-
 sns:
   orderReceived:
-    topicName: todoooooooo
+    topicName: ${SNS_ORDER_RECEIVED_NAME}
+  orderConfirmed:
+    topicName: ${SNS_ORDER_CONFIRMED_NAME}
