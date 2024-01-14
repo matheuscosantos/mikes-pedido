@@ -15,7 +15,9 @@
         "logs:CreateLogStream",
         "logs:PutLogEvents"
       ],
-      "Resource": "arn:aws:logs:*:*:*"
+      "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+      }
     }
   ]
 }
