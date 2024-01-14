@@ -7,17 +7,6 @@
       "Principal": {
         "Service": "ecs-tasks.amazonaws.com"
       }
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "logs:CreateLogGroup",
-        "logs:CreateLogStream",
-        "logs:PutLogEvents"
-      ],
-      "Principal": {
-        "Service": "ecs-tasks.amazonaws.com"
-      }
     }
   ]
 }
