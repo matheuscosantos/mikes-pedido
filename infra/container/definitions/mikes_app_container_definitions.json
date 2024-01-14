@@ -43,6 +43,14 @@
         "name": "SNS_ORDER_CONFIRMED_NAME",
         "value": "${SNS_ORDER_CONFIRMED_NAME}"
       }
-    ]
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/${NAME}",
+        "awslogs-region": "us-east-2",
+        "awslogs-stream-prefix": "ecs"
+      }
+    }
   }
 ]
