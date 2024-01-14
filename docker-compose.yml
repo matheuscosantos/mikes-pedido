@@ -18,7 +18,7 @@ services:
     depends_on:
       - postgres
     environment:
-      AWS_REGION: var.region
+      AWS_REGION: us-east-2
       DB_HOST: postgres
       DB_PORT: 5432
       DB_NAME: mikesdb

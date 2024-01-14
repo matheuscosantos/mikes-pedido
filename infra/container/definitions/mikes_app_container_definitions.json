@@ -42,6 +42,10 @@
       {
         "name": "SNS_ORDER_CONFIRMED_NAME",
         "value": "${SNS_ORDER_CONFIRMED_NAME}"
+      },
+      {
+        "name": "AWS_REGION",
+        "value": "${REGION}"
       }
     ],
     "logConfiguration": {
