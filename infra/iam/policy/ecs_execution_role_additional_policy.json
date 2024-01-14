@@ -12,7 +12,11 @@
     },
     {
       "Effect": "Allow",
-      "Action": "sns:Publish",
+      "Action": [
+        "sns:ListTopics",
+        "sns:GetTopicAttributes",
+        "sns:Publish"
+      ],
       "Resource": "*"
     }
   ]
