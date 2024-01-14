@@ -71,8 +71,8 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
     DB_SCHEMA                   = var.db_schema
     DB_USER                     = local.db_credentials["username"]
     DB_PASSWORD                 = local.db_credentials["password"]
-    SNS_ORDER_RECEIVED_NAME     = aws_sns_topic.sns_topic_pedido_recebido.name
-    SNS_ORDER_CONFIRMED_NAME    = aws_sns_topic.sns_topic_pedido_confirmado.name
+    SNS_ORDER_RECEIVED_NAME     = aws_sns_topic.sns_topic_pedido_recebido.arn
+    SNS_ORDER_CONFIRMED_NAME    = aws_sns_topic.sns_topic_pedido_confirmado.arn
     REGION                      = var.region
     LOG_GROUP_NAME              = aws_cloudwatch_log_group.ecs_log_group.name
   })

@@ -21,12 +21,6 @@ management:
 
 sns:
   orderReceived:
-    topicName: ${SNS_ORDER_RECEIVED_NAME}
+    topic: ${SNS_ORDER_RECEIVED_NAME}
   orderConfirmed:
-    topicName: ${SNS_ORDER_CONFIRMED_NAME}
-
-logging:
-  level:
-    io:
-      awspring:
-        cloud: DEBUG
+    topic: ${SNS_ORDER_CONFIRMED_NAME}
