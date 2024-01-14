@@ -55,7 +55,7 @@ locals {
 }
 
 resource "aws_cloudwatch_log_group" "ecs_log_group" {
-  name = "/ecs/${NAME}"
+  name = "/ecs/${var.name}"
 }
 
 resource "aws_ecs_task_definition" "ecs_task_definition" {
