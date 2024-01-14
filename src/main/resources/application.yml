@@ -24,3 +24,9 @@ sns:
     topicName: ${SNS_ORDER_RECEIVED_NAME}
   orderConfirmed:
     topicName: ${SNS_ORDER_CONFIRMED_NAME}
+
+logging:
+  level:
+    io:
+      awspring:
+        cloud=debug
