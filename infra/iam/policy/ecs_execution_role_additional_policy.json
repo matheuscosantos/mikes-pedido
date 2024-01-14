@@ -14,6 +14,7 @@
       "Effect": "Allow",
       "Action": [
         "sns:CreateTopic",
+        "sns:GetTopicAttributes",
         "sns:ListTopics",
         "sns:Publish"
       ],
