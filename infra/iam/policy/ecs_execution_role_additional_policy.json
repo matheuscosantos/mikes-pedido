@@ -13,8 +13,8 @@
     {
       "Effect": "Allow",
       "Action": [
+        "sns:CreateTopic",
         "sns:ListTopics",
-        "sns:GetTopicAttributes",
         "sns:Publish"
       ],
       "Resource": "*"
