@@ -13,7 +13,7 @@ variable "name" {
   default = "mikes-pedido"
 }
 
-variable "db_schema" {
+variable "db_name" {
   type    = string
   default = "pedido"
 }

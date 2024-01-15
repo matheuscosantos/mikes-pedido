@@ -1,7 +1,3 @@
-CREATE SCHEMA pedido;
-
-SET search_path TO pedido, public;
-
 CREATE TABLE cliente(
     cpf VARCHAR(11) PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,

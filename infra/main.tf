@@ -74,8 +74,7 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
     NAME                        = "${var.name}-container"
     DB_HOST                     = data.aws_db_instance.db_instance.address
     DB_PORT                     = data.aws_db_instance.db_instance.port
-    DB_NAME                     = data.aws_db_instance.db_instance.db_name
-    DB_SCHEMA                   = var.db_schema
+    DB_NAME                     = var.db_name
     DB_USER                     = local.db_credentials["username"]
     DB_PASSWORD                 = local.db_credentials["password"]
     SNS_ORDER_RECEIVED_NAME     = aws_sns_topic.sns_topic_pedido_recebido.arn

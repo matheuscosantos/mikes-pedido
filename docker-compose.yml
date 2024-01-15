@@ -4,7 +4,7 @@ services:
   postgres:
     image: postgres:latest
     environment:
-      POSTGRES_DB: mikesdb
+      POSTGRES_DB: pedido
       POSTGRES_USER: root
       POSTGRES_PASSWORD: 123
     ports:
@@ -21,8 +21,7 @@ services:
       AWS_REGION: us-east-2
       DB_HOST: postgres
       DB_PORT: 5432
-      DB_NAME: mikesdb
-      DB_SCHEMA: pedido
+      DB_NAME: pedido
       DB_USER: root
       DB_PASSWORD: 123
       SNS_ORDER_RECEIVED_NAME: pedido-recebido
