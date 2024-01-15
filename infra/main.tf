@@ -43,6 +43,50 @@ resource "aws_sns_topic" "sns_topic_pedido_confirmado" {
   name = var.sns_name_pedido_confirmado
 }
 
+# -- queues
+
+resource "aws_sqs_queue" "sqs_pagamento_pedido" {
+  name                      = var.sqs_name_pagamento_pedido
+  delay_seconds             = 0
+  max_message_size          = 262144
+  message_retention_seconds = 259200
+  visibility_timeout_seconds = 30
+
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = aws_sqs_queue.sqs_pagamento_pedido_dlq.arn
+    maxReceiveCount     = 3
+  })
+}
+
+resource "aws_sqs_queue" "sqs_pagamento_pedido_dlq" {
+  name                      = "${var.sqs_name_pagamento_pedido}-dlq"
+  delay_seconds             = 0
+  max_message_size          = 262144
+  message_retention_seconds = 1209600
+  visibility_timeout_seconds = 30
+}
+
+resource "aws_sqs_queue" "sqs_producao_pedido" {
+  name                      = var.sqs_name_producao_pedido
+  delay_seconds             = 0
+  max_message_size          = 262144
+  message_retention_seconds = 259200
+  visibility_timeout_seconds = 30
+
+  redrive_policy = jsonencode({
+    deadLetterTargetArn = aws_sqs_queue.sqs_producao_pedido_dlq.arn
+    maxReceiveCount     = 3
+  })
+}
+
+resource "aws_sqs_queue" "sqs_producao_pedido_dlq" {
+  name                      = "${var.sqs_name_producao_pedido}-dlq"
+  delay_seconds             = 0
+  max_message_size          = 262144
+  message_retention_seconds = 1209600
+  visibility_timeout_seconds = 30
+}
+
 # -- task definition
 
 data "aws_db_instance" "db_instance" {

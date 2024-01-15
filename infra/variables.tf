@@ -28,6 +28,16 @@ variable "sns_name_pedido_confirmado" {
   default = "pedido-confirmado"
 }
 
+variable "sqs_name_pagamento_pedido" {
+  type    = string
+  default = "pagamento-pedido"
+}
+
+variable "sqs_name_producao_pedido" {
+  type    = string
+  default = "producao-pedido"
+}
+
 variable "subnets" {
   type    = list(string)
   default = [
