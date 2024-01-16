@@ -26,5 +26,7 @@ services:
       DB_PASSWORD: 123
       SNS_ORDER_RECEIVED_NAME: pedido-recebido
       SNS_ORDER_CONFIRMED_NAME: pedido-confirmado
+      SQS_ORDER_PAYMENT_NAME: pagamento-pedido
+      SQS_ORDER_PRODUCTION_NAME: producao-pedido
     ports:
       - "8080:8080"

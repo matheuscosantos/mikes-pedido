@@ -24,3 +24,9 @@ sns:
     topic: ${SNS_ORDER_RECEIVED_NAME}
   orderConfirmed:
     topic: ${SNS_ORDER_CONFIRMED_NAME}
+
+sqs:
+  orderPayment:
+    queue: ${SQS_ORDER_PAYMENT_NAME}
+  orderProduction:
+    queue: ${SQS_ORDER_PRODUCTION_NAME}

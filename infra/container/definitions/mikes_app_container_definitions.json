@@ -40,6 +40,14 @@
         "value": "${SNS_ORDER_CONFIRMED_NAME}"
       },
       {
+        "name": "SQS_ORDER_PAYMENT_NAME",
+        "value": "${SQS_ORDER_PAYMENT_NAME}"
+      },
+      {
+        "name": "SQS_ORDER_PRODUCTION_NAME",
+        "value": "${SQS_ORDER_PRODUCTION_NAME}"
+      },
+      {
         "name": "AWS_REGION",
         "value": "${REGION}"
       }

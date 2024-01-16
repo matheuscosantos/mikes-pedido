@@ -26,6 +26,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
 
     implementation("io.awspring.cloud:spring-cloud-aws-starter-sns:3.1.0")
+    implementation("io.awspring.cloud:spring-cloud-aws-starter-sqs:3.1.0")
     implementation("io.awspring.cloud:spring-cloud-aws-starter:3.1.0")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
