@@ -21,12 +21,12 @@ management:
 
 sns:
   orderReceived:
-    topic: ${SNS_ORDER_RECEIVED_NAME}
+    arn: ${SNS_ORDER_RECEIVED_ARN}
   orderConfirmed:
-    topic: ${SNS_ORDER_CONFIRMED_NAME}
+    arn: ${SNS_ORDER_CONFIRMED_ARN}
 
 sqs:
   orderPayment:
-    queue: ${SQS_ORDER_PAYMENT_NAME}
+    url: ${SQS_ORDER_PAYMENT_URL}
   orderProduction:
-    queue: ${SQS_ORDER_PRODUCTION_NAME}
+    url: ${SQS_ORDER_PRODUCTION_URL}

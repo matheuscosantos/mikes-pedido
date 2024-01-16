@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service
 @Service
 class SnsOrderReceivedMessenger(
     private val snsMessenger: SnsMessenger,
-    @Value("\${sns.orderReceived.topic}")
-    private val orderReceivedTopic: String,
+    @Value("\${sns.orderReceived.arn}")
+    private val orderReceivedArn: String,
 ) : OrderReceivedMessenger {
     override fun send(orderReceivedMessage: OrderReceivedMessage) {
-        snsMessenger.send(orderReceivedTopic, orderReceivedMessage)
+        snsMessenger.send(orderReceivedArn, orderReceivedMessage)
     }
 }

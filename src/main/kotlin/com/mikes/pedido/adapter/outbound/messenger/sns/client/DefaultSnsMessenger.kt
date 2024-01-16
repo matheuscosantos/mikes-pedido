@@ -9,9 +9,9 @@ class DefaultSnsMessenger(
     private val snsTemplate: SnsTemplate,
 ) : SnsMessenger {
     override fun <M : Any> send(
-        topic: String,
+        arn: String,
         message: M,
     ) {
-        snsTemplate.send(topic, GenericMessage(message))
+        snsTemplate.send(arn, GenericMessage(message))
     }
 }

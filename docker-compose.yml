@@ -24,9 +24,9 @@ services:
       DB_NAME: pedido
       DB_USER: root
       DB_PASSWORD: 123
-      SNS_ORDER_RECEIVED_NAME: pedido-recebido
-      SNS_ORDER_CONFIRMED_NAME: pedido-confirmado
-      SQS_ORDER_PAYMENT_NAME: pagamento-pedido
-      SQS_ORDER_PRODUCTION_NAME: producao-pedido
+      SNS_ORDER_RECEIVED_ARN: arn:aws:sns:us-east-2:000000000000:pedido-recebido
+      SNS_ORDER_CONFIRMED_ARN: arn:aws:sns:us-east-2:000000000000:pedido-confirmado
+      SQS_ORDER_PAYMENT_URL: http://localhost:4566/queue/pagamento-pedido
+      SQS_ORDER_PRODUCTION_URL: http://localhost:4566/queue/producao-pedido
     ports:
       - "8080:8080"

@@ -5,7 +5,7 @@ import io.awspring.cloud.sqs.annotation.SqsListener
 import java.util.logging.Logger
 
 class PaymentListener {
-    @SqsListener("\${sqs.orderPayment.queue}")
+    @SqsListener("\${sqs.orderPayment.url}")
     fun listener(message: PaymentMessage) {
         Logger
             .getLogger("PaymentListener")

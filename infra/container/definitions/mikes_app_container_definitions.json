@@ -32,20 +32,20 @@
         "value": "${DB_PASSWORD}"
       },
       {
-        "name": "SNS_ORDER_RECEIVED_NAME",
-        "value": "${SNS_ORDER_RECEIVED_NAME}"
+        "name": "SNS_ORDER_RECEIVED_ARN",
+        "value": "${SNS_ORDER_RECEIVED_ARN}"
       },
       {
-        "name": "SNS_ORDER_CONFIRMED_NAME",
-        "value": "${SNS_ORDER_CONFIRMED_NAME}"
+        "name": "SNS_ORDER_CONFIRMED_ARN",
+        "value": "${SNS_ORDER_CONFIRMED_ARN}"
       },
       {
-        "name": "SQS_ORDER_PAYMENT_NAME",
-        "value": "${SQS_ORDER_PAYMENT_NAME}"
+        "name": "SQS_ORDER_PAYMENT_URL",
+        "value": "${SQS_ORDER_PAYMENT_URL}"
       },
       {
-        "name": "SQS_ORDER_PRODUCTION_NAME",
-        "value": "${SQS_ORDER_PRODUCTION_NAME}"
+        "name": "SQS_ORDER_PRODUCTION_URL",
+        "value": "${SQS_ORDER_PRODUCTION_URL}"
       },
       {
         "name": "AWS_REGION",

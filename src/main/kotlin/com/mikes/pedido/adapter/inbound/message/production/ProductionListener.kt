@@ -5,7 +5,7 @@ import io.awspring.cloud.sqs.annotation.SqsListener
 import java.util.logging.Logger
 
 class ProductionListener {
-    @SqsListener("\${sqs.orderProduction.queue}")
+    @SqsListener("\${sqs.orderProduction.url}")
     fun listener(message: ProductionMessage) {
         Logger
             .getLogger("ProductionListener")
