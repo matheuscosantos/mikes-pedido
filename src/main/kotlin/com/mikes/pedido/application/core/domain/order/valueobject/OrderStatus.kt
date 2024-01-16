@@ -9,6 +9,7 @@ enum class OrderStatus(val value: String) {
     PREPARING("preparing"),
     READY("ready"),
     FINISHED("finished"),
+    CANCELLED("cancelled"),
     ;
 
     companion object {
