@@ -76,7 +76,10 @@ class OrderPortsInstantiationConfig {
     }
 
     @Bean
-    fun orderPaymentService(orderConfirmedMessenger: OrderConfirmedMessenger): OrderPaymentService {
-        return OrderPaymentUserCase(orderConfirmedMessenger)
+    fun orderPaymentService(
+        orderConfirmedMessenger: OrderConfirmedMessenger,
+        findOrderService: FindOrderService,
+    ): OrderPaymentService {
+        return OrderPaymentUserCase(orderConfirmedMessenger, findOrderService)
     }
 }
