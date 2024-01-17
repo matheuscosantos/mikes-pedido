@@ -1,5 +1,6 @@
 package com.mikes.pedido.adapter.outbound.messenger.sns.client
 
+import com.mikes.pedido.util.serializeJson
 import io.awspring.cloud.sns.core.SnsTemplate
 import org.springframework.messaging.support.GenericMessage
 import org.springframework.stereotype.Service
@@ -12,6 +13,6 @@ class DefaultSnsMessenger(
         arn: String,
         message: M,
     ) {
-        snsTemplate.send(arn, GenericMessage(message))
+        snsTemplate.send(arn, GenericMessage(message.serializeJson()))
     }
 }
