@@ -28,6 +28,11 @@ variable "sns_name_pedido_confirmado" {
   default = "pedido-confirmado"
 }
 
+variable "sns_name_status_pagamento" {
+  type    = string
+  default = "status-pagamento"
+}
+
 variable "sqs_name_pagamento_pedido" {
   type    = string
   default = "pagamento-pedido"

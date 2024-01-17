@@ -83,6 +83,30 @@ resource "aws_sqs_queue" "sqs_producao_pedido_dlq" {
   visibility_timeout_seconds = 30
 }
 
+# -- subscribes
+
+data "aws_sns_topic" "sns_topic_status_pagamento" {
+    name = var.sns_name_status_pagamento
+}
+
+resource "aws_sns_topic_subscription" "example_subscription" {
+  topic_arn            = aws_sns_topic.sns_topic_status_pagamento.arn
+  protocol             = "sqs"
+  endpoint             = aws_sqs_queue.sqs_pagamento_pedido.arn
+  raw_message_delivery = true
+}
+
+#data "aws_sns_topic" "?" {
+#    name = var.?
+#}
+
+#resource "aws_sns_topic_subscription" "?" {
+#  topic_arn            = aws_sns_topic.?.arn
+#  protocol             = "sqs"
+#  endpoint             = aws_sqs_queue.sqs_producao_pedido.arn
+#  raw_message_delivery = true
+#}
+
 # -- task definition
 
 data "aws_db_instance" "db_instance" {
