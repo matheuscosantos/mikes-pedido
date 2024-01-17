@@ -3,8 +3,18 @@
   "Statement": [
     {
       "Effect": "Allow",
-      "Principal": "*",
-      "Action": "sqs:SendMessage",
+      "Principal": {
+        "AWS": "${ROOT_USER}"
+      },
+      "Action": "SQS:*",
+      "Resource": "${QUEUE_ARN}"
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Action": "SQS:SendMessage",
       "Resource": "${QUEUE_ARN}"
     }
   ]
