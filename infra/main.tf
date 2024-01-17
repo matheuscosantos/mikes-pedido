@@ -91,7 +91,7 @@ resource "aws_sqs_queue" "sqs_producao_pedido_dlq" {
   visibility_timeout_seconds = 30
 }
 
-resource "aws_sqs_queue_policy" "sqs_pagamento_pedido_policy" {
+resource "aws_sqs_queue_policy" "sqs_producao_pedido_policy" {
   queue_url = aws_sqs_queue.sqs_producao_pedido.id
 
   policy = templatefile("iam/policy/sqs_queue_policy.json", {
