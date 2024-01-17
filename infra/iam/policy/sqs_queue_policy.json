@@ -4,6 +4,14 @@
     {
       "Effect": "Allow",
       "Principal": {
+        "AWS": "${CALLER_ARN}"
+      },
+      "Action": "SQS:*",
+      "Resource": "${QUEUE_ARN}"
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
         "AWS": "*"
       },
       "Action": "SQS:SendMessage",
