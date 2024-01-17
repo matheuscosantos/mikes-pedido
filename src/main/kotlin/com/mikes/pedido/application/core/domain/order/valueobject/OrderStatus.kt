@@ -4,20 +4,20 @@ import com.mikes.pedido.application.core.domain.exception.order.InvalidOrderStat
 import kotlin.Result.Companion.failure
 import kotlin.Result.Companion.success
 
-enum class OrderStatus(val value: String) {
-    RECEIVED("received"),
-    PAID("paid"),
-    PREPARING("preparing"),
-    READY("ready"),
-    FINISHED("finished"),
-    CANCELLED("cancelled"),
+enum class OrderStatus {
+    RECEIVED,
+    PAID,
+    PREPARING,
+    READY,
+    FINISHED,
+    CANCELLED,
     ;
 
     companion object {
-        fun findByValue(value: String): Result<OrderStatus> {
+        fun findByValue(nameValue: String): Result<OrderStatus> {
             val orderStatus =
-                entries.firstOrNull { it.value == value }
-                    ?: return failure(InvalidOrderStatusException("Invalid Order Status: '$value'."))
+                entries.find { it.name.equals(nameValue, ignoreCase = true) }
+                    ?: return failure(InvalidOrderStatusException("Invalid Order Status: '$nameValue'."))
 
             return success(orderStatus)
         }

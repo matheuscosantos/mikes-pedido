@@ -23,7 +23,7 @@ data class OrderDto(
                     cpf?.value,
                     items.map { OrderItemDto.from(it) },
                     price.value,
-                    orderStatus.value,
+                    orderStatus.name,
                     createdAt,
                     updatedAt,
                 )

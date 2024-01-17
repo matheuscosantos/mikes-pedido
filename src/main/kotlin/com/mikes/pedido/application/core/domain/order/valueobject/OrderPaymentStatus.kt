@@ -2,17 +2,17 @@ package com.mikes.pedido.application.core.domain.order.valueobject
 
 import com.mikes.pedido.application.core.domain.exception.order.InvalidOrderPaymentStatusException
 
-enum class OrderPaymentStatus(val value: String) {
-    ACCEPTED("accepted"),
-    REFUSED("refused"),
-    WAITING("waiting"),
+enum class OrderPaymentStatus {
+    ACCEPTED,
+    REFUSED,
+    WAITING,
     ;
 
     companion object {
-        fun findByValue(value: String): Result<OrderPaymentStatus> {
+        fun findByValue(nameValue: String): Result<OrderPaymentStatus> {
             val status =
-                entries.firstOrNull { it.value == value }
-                    ?: return Result.failure(InvalidOrderPaymentStatusException("Invalid Order Payment Status: '$value'."))
+                entries.find { it.name.equals(nameValue, ignoreCase = true) }
+                    ?: return Result.failure(InvalidOrderPaymentStatusException("Invalid Order Payment Status: '$nameValue'."))
 
             return Result.success(status)
         }
