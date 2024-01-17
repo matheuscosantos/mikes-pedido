@@ -79,7 +79,8 @@ class OrderPortsInstantiationConfig {
     fun orderPaymentService(
         orderConfirmedMessenger: OrderConfirmedMessenger,
         findOrderService: FindOrderService,
+        orderRepository: OrderRepository,
     ): OrderPaymentService {
-        return OrderPaymentUserCase(orderConfirmedMessenger, findOrderService)
+        return OrderPaymentUserCase(orderConfirmedMessenger, findOrderService, orderRepository)
     }
 }

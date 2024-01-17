@@ -6,6 +6,7 @@ import kotlin.Result.Companion.success
 
 enum class OrderStatus(val value: String) {
     RECEIVED("received"),
+    PAID("paid"),
     PREPARING("preparing"),
     READY("ready"),
     FINISHED("finished"),
