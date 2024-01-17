@@ -4,6 +4,7 @@ import com.mikes.pedido.adapter.inbound.message.order.dto.OrderProductionMessage
 import com.mikes.pedido.application.port.inbound.order.OrderProductionService
 import io.awspring.cloud.sqs.annotation.SqsListener
 import org.springframework.stereotype.Component
+import java.util.logging.Logger
 
 @Component
 class OrderProductionListener(
@@ -11,7 +12,15 @@ class OrderProductionListener(
 ) {
     @SqsListener("\${sqs.orderProduction.url}")
     fun listener(message: OrderProductionMessage) {
+        logger.info("received message with orderId '${message.orderId}' and status '${message.status}'.")
+
         orderProductionService.process(message.toInbound())
+            .onSuccess { logger.info("success processing message with orderId '${message.orderId}' and status '${message.status}'..") }
+            .onFailure { logger.warning("error processing message: ${it.message}.") }
             .getOrThrow()
+    }
+
+    companion object {
+        private val logger = Logger.getLogger("OrderProductionListener")
     }
 }
