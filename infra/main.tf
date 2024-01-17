@@ -62,6 +62,14 @@ resource "aws_sqs_queue" "sqs_pagamento_pedido_dlq" {
   visibility_timeout_seconds = 30
 }
 
+resource "aws_sqs_queue_policy" "sqs_pagamento_pedido_policy" {
+  queue_url = aws_sqs_queue.sqs_pagamento_pedido.id
+
+  policy = templatefile("iam/policy/sqs_queue_policy.json", {
+    QUEUE_ARN = aws_sqs_queue.sqs_pagamento_pedido.arn
+  })
+}
+
 resource "aws_sqs_queue" "sqs_producao_pedido" {
   name                      = var.sqs_name_producao_pedido
   delay_seconds             = 0
@@ -81,6 +89,14 @@ resource "aws_sqs_queue" "sqs_producao_pedido_dlq" {
   max_message_size          = 262144
   message_retention_seconds = 1209600
   visibility_timeout_seconds = 30
+}
+
+resource "aws_sqs_queue_policy" "sqs_pagamento_pedido_policy" {
+  queue_url = aws_sqs_queue.sqs_producao_pedido.id
+
+  policy = templatefile("iam/policy/sqs_queue_policy.json", {
+    QUEUE_ARN = aws_sqs_queue.sqs_producao_pedido.arn
+  })
 }
 
 # -- subscribes
