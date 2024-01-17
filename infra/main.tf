@@ -41,10 +41,6 @@ resource "aws_sns_topic" "sns_topic_pedido_confirmado" {
 
 # -- queues
 
-data "aws_iam_user" "root_user" {
-  user_name = "root"
-}
-
 resource "aws_sqs_queue" "sqs_pagamento_pedido" {
   name                      = var.sqs_name_pagamento_pedido
   delay_seconds             = 0
@@ -70,7 +66,6 @@ resource "aws_sqs_queue_policy" "sqs_pagamento_pedido_policy" {
   queue_url = aws_sqs_queue.sqs_pagamento_pedido.id
 
   policy = templatefile("iam/policy/sqs_queue_policy.json", {
-    ROOT_USER = data.aws_iam_user.root_user.arn
     QUEUE_ARN = aws_sqs_queue.sqs_pagamento_pedido.arn
   })
 }
@@ -100,7 +95,6 @@ resource "aws_sqs_queue_policy" "sqs_producao_pedido_policy" {
   queue_url = aws_sqs_queue.sqs_producao_pedido.id
 
   policy = templatefile("iam/policy/sqs_queue_policy.json", {
-    ROOT_USER = data.aws_iam_user.root_user.arn
     QUEUE_ARN = aws_sqs_queue.sqs_producao_pedido.arn
   })
 }

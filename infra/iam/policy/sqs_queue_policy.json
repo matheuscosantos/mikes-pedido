@@ -4,14 +4,6 @@
     {
       "Effect": "Allow",
       "Principal": {
-        "AWS": "${ROOT_USER}"
-      },
-      "Action": "SQS:*",
-      "Resource": "${QUEUE_ARN}"
-    },
-    {
-      "Effect": "Allow",
-      "Principal": {
         "AWS": "*"
       },
       "Action": "SQS:SendMessage",
