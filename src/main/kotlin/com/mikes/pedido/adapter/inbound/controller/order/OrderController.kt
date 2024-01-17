@@ -4,7 +4,6 @@ import com.mikes.pedido.adapter.inbound.controller.order.dto.CreateOrderRequest
 import com.mikes.pedido.adapter.inbound.controller.order.dto.OrderDto
 import com.mikes.pedido.application.port.inbound.order.CreateOrderService
 import com.mikes.pedido.application.port.inbound.order.FindOrderService
-import com.mikes.pedido.application.port.inbound.order.UpdateOrderStatusService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController
 class OrderController(
     private val createOrderService: CreateOrderService,
     private val findOrderService: FindOrderService,
-    private val updateOrderStatusService: UpdateOrderStatusService,
 ) {
     @GetMapping
     fun findOrdersWithDescriptions(): ResponseEntity<List<OrderDto>> {

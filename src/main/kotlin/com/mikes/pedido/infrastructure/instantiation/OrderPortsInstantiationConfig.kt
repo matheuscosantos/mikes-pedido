@@ -6,14 +6,14 @@ import com.mikes.pedido.adapter.outbound.database.jpa.OrderJpaRepository
 import com.mikes.pedido.application.core.usecase.order.CreateOrderUseCase
 import com.mikes.pedido.application.core.usecase.order.FindOrderUseCase
 import com.mikes.pedido.application.core.usecase.order.OrderPaymentUserCase
-import com.mikes.pedido.application.core.usecase.order.UpdateOrderStatusUseCase
+import com.mikes.pedido.application.core.usecase.order.OrderProductionUseCase
 import com.mikes.pedido.application.mapper.order.DefaultOrderDomainMapper
 import com.mikes.pedido.application.mapper.order.OrderDomainMapper
 import com.mikes.pedido.application.port.inbound.customer.FindCustomerService
 import com.mikes.pedido.application.port.inbound.order.CreateOrderService
 import com.mikes.pedido.application.port.inbound.order.FindOrderService
 import com.mikes.pedido.application.port.inbound.order.OrderPaymentService
-import com.mikes.pedido.application.port.inbound.order.UpdateOrderStatusService
+import com.mikes.pedido.application.port.inbound.order.OrderProductionService
 import com.mikes.pedido.application.port.inbound.product.FindProductService
 import com.mikes.pedido.application.port.outbound.order.OrderConfirmedMessenger
 import com.mikes.pedido.application.port.outbound.order.OrderReceivedMessenger
@@ -68,19 +68,19 @@ class OrderPortsInstantiationConfig {
     }
 
     @Bean
-    fun updateOrderStatusService(
-        orderRepository: OrderRepository,
-        orderDomainMapper: OrderDomainMapper,
-    ): UpdateOrderStatusService {
-        return UpdateOrderStatusUseCase(orderRepository, orderDomainMapper)
-    }
-
-    @Bean
     fun orderPaymentService(
         orderConfirmedMessenger: OrderConfirmedMessenger,
         findOrderService: FindOrderService,
         orderRepository: OrderRepository,
     ): OrderPaymentService {
         return OrderPaymentUserCase(orderConfirmedMessenger, findOrderService, orderRepository)
+    }
+
+    @Bean
+    fun orderProductionService(
+        findOrderService: FindOrderService,
+        orderRepository: OrderRepository,
+    ): OrderProductionService {
+        return OrderProductionUseCase(findOrderService, orderRepository)
     }
 }

@@ -12,5 +12,6 @@ class OrderPaymentListener(
     @SqsListener("\${sqs.orderPayment.url}")
     fun listener(message: OrderPaymentMessage) {
         orderPaymentService.process(message.toInbound())
+            .getOrThrow()
     }
 }
