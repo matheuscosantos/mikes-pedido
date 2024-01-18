@@ -134,7 +134,7 @@ data "aws_db_instance" "db_instance" {
 }
 
 data "aws_elasticache_cluster" "redis" {
-  cluster_id = "mikes-redis-cluster"
+  cluster_id = var.mikes_redis_cluster_name
 }
 
 data "aws_secretsmanager_secret" "db_credentials" {
