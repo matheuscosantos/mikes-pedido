@@ -9,7 +9,6 @@ import com.mikes.pedido.application.port.inbound.order.FindOrderService
 import com.mikes.pedido.application.port.outbound.order.OrderRepository
 import com.mikes.pedido.application.port.outbound.order.dto.OrderOutboundResponse
 import com.mikes.pedido.util.mapFailure
-import org.springframework.cache.annotation.Cacheable
 import kotlin.Result.Companion.failure
 import kotlin.Result.Companion.success
 
@@ -17,7 +16,6 @@ open class FindOrderUseCase(
     private val orderRepository: OrderRepository,
     private val orderDomainMapper: OrderDomainMapper,
 ) : FindOrderService {
-    @Cacheable("findOrdersWithDescriptions")
     override fun findOrdersWithDescriptions(): Result<List<Order>> {
         val orders = orderRepository.findOrdersWithDescriptions().map { it.toOrder().getOrElse { e -> return failure(e) } }
         return success(orders)

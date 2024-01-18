@@ -1,6 +1,7 @@
 package com.mikes.pedido.adapter.inbound.controller.order.dto
 
 import com.mikes.pedido.application.core.domain.order.Order
+import java.io.Serializable
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
@@ -13,7 +14,7 @@ data class OrderDto(
     val orderStatus: String,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
-) {
+) : Serializable {
     companion object {
         fun from(order: Order): OrderDto =
             with(order) {

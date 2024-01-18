@@ -5,7 +5,7 @@ import com.mikes.pedido.adapter.outbound.database.jpa.OrderItemJpaRepository
 import com.mikes.pedido.adapter.outbound.database.jpa.OrderJpaRepository
 import com.mikes.pedido.application.core.usecase.order.CreateOrderUseCase
 import com.mikes.pedido.application.core.usecase.order.FindOrderUseCase
-import com.mikes.pedido.application.core.usecase.order.OrderPaymentUserCase
+import com.mikes.pedido.application.core.usecase.order.OrderPaymentUseCase
 import com.mikes.pedido.application.core.usecase.order.OrderProductionUseCase
 import com.mikes.pedido.application.mapper.order.DefaultOrderDomainMapper
 import com.mikes.pedido.application.mapper.order.OrderDomainMapper
@@ -39,7 +39,7 @@ class OrderPortsInstantiationConfig {
                 orderJpaRepository,
                 orderItemJpaRepository,
             ) {}
-        )
+            )
     }
 
     @Bean
@@ -73,7 +73,7 @@ class OrderPortsInstantiationConfig {
         findOrderService: FindOrderService,
         orderRepository: OrderRepository,
     ): OrderPaymentService {
-        return OrderPaymentUserCase(orderConfirmedMessenger, findOrderService, orderRepository)
+        return OrderPaymentUseCase(orderConfirmedMessenger, findOrderService, orderRepository)
     }
 
     @Bean

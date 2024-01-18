@@ -12,7 +12,7 @@ class OrderProductionListener(
     private val orderProductionService: OrderProductionService,
 ) {
     @SqsListener("\${sqs.orderProduction.url}")
-    @CacheEvict("findOrdersWithDescriptions")
+    @CacheEvict(value = ["findOrdersWithDescriptions"], key = "#message.orderId")
     fun listener(message: OrderProductionMessage) {
         logger.info("received message with orderId '${message.orderId}' and status '${message.status}'.")
 

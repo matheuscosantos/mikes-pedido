@@ -12,7 +12,7 @@ class OrderPaymentListener(
     private val orderPaymentService: OrderPaymentService,
 ) {
     @SqsListener("\${sqs.orderPayment.url}")
-    @CacheEvict("findOrdersWithDescriptions")
+    @CacheEvict(value = ["findOrdersWithDescriptions"], key = "#message.orderId")
     fun listener(message: OrderPaymentMessage) {
         logger.info("received message with orderId '${message.orderId}' and status '${message.status}'.")
 

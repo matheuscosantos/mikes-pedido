@@ -14,7 +14,7 @@ import com.mikes.pedido.util.flatMap
 import kotlin.Result.Companion.failure
 import kotlin.Result.Companion.success
 
-class OrderPaymentUserCase(
+class OrderPaymentUseCase(
     private val orderConfirmedMessenger: OrderConfirmedMessenger,
     private val findOrderService: FindOrderService,
     private val orderRepository: OrderRepository,
