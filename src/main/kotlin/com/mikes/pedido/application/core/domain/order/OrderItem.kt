@@ -5,6 +5,7 @@ import com.mikes.pedido.application.core.domain.order.valueobject.OrderItemPrice
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderItemQuantity
 import com.mikes.pedido.application.core.domain.product.valueobject.ProductName
 import com.mikes.pedido.application.core.domain.product.valueobject.ProductPrice
+import java.io.Serializable
 import kotlin.Result.Companion.failure
 import kotlin.Result.Companion.success
 
@@ -14,7 +15,7 @@ class OrderItem private constructor(
     val productPrice: ProductPrice,
     val quantity: OrderItemQuantity,
     val price: OrderItemPrice,
-) {
+) : Serializable {
 
     companion object {
         fun new(

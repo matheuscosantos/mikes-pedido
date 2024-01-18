@@ -12,7 +12,7 @@ import com.mikes.pedido.util.mapFailure
 import kotlin.Result.Companion.failure
 import kotlin.Result.Companion.success
 
-class FindOrderUseCase(
+open class FindOrderUseCase(
     private val orderRepository: OrderRepository,
     private val orderDomainMapper: OrderDomainMapper,
 ) : FindOrderService {

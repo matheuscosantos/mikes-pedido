@@ -55,3 +55,8 @@ variable "subnets" {
     "subnet-08e43d2d7fa2c463e"
   ]
 }
+
+variable "mikes_redis_cluster_name" {
+  type    = string
+  default = "mikes-redis-cluster"
+}

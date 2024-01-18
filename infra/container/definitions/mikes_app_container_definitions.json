@@ -50,6 +50,10 @@
       {
         "name": "AWS_REGION",
         "value": "${REGION}"
+      },
+      {
+        "name": "REDIS_HOST",
+        "value": "${REDIS_HOST}"
       }
     ],
     "logConfiguration": {

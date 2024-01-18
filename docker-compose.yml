@@ -30,3 +30,8 @@ services:
       SQS_ORDER_PRODUCTION_URL: http://localhost:4566/queue/producao-pedido
     ports:
       - "8080:8080"
+
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
