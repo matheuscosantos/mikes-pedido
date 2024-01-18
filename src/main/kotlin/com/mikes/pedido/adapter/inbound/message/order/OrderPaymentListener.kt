@@ -3,6 +3,7 @@ package com.mikes.pedido.adapter.inbound.message.order
 import com.mikes.pedido.adapter.inbound.message.order.dto.OrderPaymentMessage
 import com.mikes.pedido.application.port.inbound.order.OrderPaymentService
 import io.awspring.cloud.sqs.annotation.SqsListener
+import org.springframework.cache.annotation.CacheEvict
 import org.springframework.stereotype.Component
 import java.util.logging.Logger
 
@@ -11,6 +12,7 @@ class OrderPaymentListener(
     private val orderPaymentService: OrderPaymentService,
 ) {
     @SqsListener("\${sqs.orderPayment.url}")
+    @CacheEvict("findOrdersWithDescriptions")
     fun listener(message: OrderPaymentMessage) {
         logger.info("received message with orderId '${message.orderId}' and status '${message.status}'.")
 

@@ -4,6 +4,7 @@ import com.mikes.pedido.adapter.inbound.controller.order.dto.CreateOrderRequest
 import com.mikes.pedido.adapter.inbound.controller.order.dto.OrderDto
 import com.mikes.pedido.application.port.inbound.order.CreateOrderService
 import com.mikes.pedido.application.port.inbound.order.FindOrderService
+import org.springframework.cache.annotation.CacheEvict
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -26,6 +27,7 @@ class OrderController(
     }
 
     @PostMapping
+    @CacheEvict("findOrdersWithDescriptions")
     fun create(
         @RequestBody createOrderRequest: CreateOrderRequest,
     ): ResponseEntity<OrderDto> {
