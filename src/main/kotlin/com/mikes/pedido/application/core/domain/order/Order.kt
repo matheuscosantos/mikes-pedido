@@ -1,24 +1,34 @@
 package com.mikes.pedido.application.core.domain.order
 
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.mikes.pedido.application.core.domain.customer.valueobject.Cpf
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderId
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderNumber
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderPrice
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderStatus
-import com.mikes.pedido.application.core.domain.customer.valueobject.Cpf
+import java.io.Serializable
 import java.time.LocalDateTime
 import kotlin.Result.Companion.failure
 import kotlin.Result.Companion.success
 
 class Order private constructor(
+    @JsonProperty("id")
     val id: OrderId,
+    @JsonProperty("number")
     val number: OrderNumber,
+    @JsonProperty("cpf")
     val cpf: Cpf?,
+    @JsonProperty("item")
     val items: List<OrderItem>,
+    @JsonProperty("price")
     val price: OrderPrice,
+    @JsonProperty("orderStatus")
     val orderStatus: OrderStatus,
+    @JsonProperty("createdAt")
     val createdAt: LocalDateTime,
+    @JsonProperty("updatedAt")
     val updatedAt: LocalDateTime,
-) {
+) : Serializable {
 
     companion object {
         fun new(

@@ -133,6 +133,10 @@ data "aws_db_instance" "db_instance" {
   db_instance_identifier = "mikes-db"
 }
 
+data "aws_elasticache_cluster" "redis" {
+  cluster_id = "mikes-redis-cluster"
+}
+
 data "aws_secretsmanager_secret" "db_credentials" {
   name = "mikes/db/db_credentials"
 }
@@ -167,6 +171,7 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
     SQS_ORDER_PRODUCTION_URL    = aws_sqs_queue.sqs_producao_pedido.url
     REGION                      = var.region
     LOG_GROUP_NAME              = aws_cloudwatch_log_group.ecs_log_group.name
+    REDIS_HOST                  = data.aws_elasticache_cluster.redis.cache_nodes.0.address
   })
 }
 

@@ -8,14 +8,18 @@ import com.mikes.pedido.application.mapper.order.OrderDomainMapper
 import com.mikes.pedido.application.port.inbound.order.FindOrderService
 import com.mikes.pedido.application.port.outbound.order.OrderRepository
 import com.mikes.pedido.application.port.outbound.order.dto.OrderOutboundResponse
+import org.springframework.cache.annotation.CacheConfig
+import org.springframework.cache.annotation.Cacheable
 import com.mikes.pedido.util.mapFailure
 import kotlin.Result.Companion.failure
 import kotlin.Result.Companion.success
 
-class FindOrderUseCase(
+@CacheConfig(cacheNames = ["mikes-redis-cluster"])
+open class FindOrderUseCase(
     private val orderRepository: OrderRepository,
     private val orderDomainMapper: OrderDomainMapper,
 ) : FindOrderService {
+    @Cacheable("findOrdersWithDescriptions")
     override fun findOrdersWithDescriptions(): Result<List<Order>> {
         val orders = orderRepository.findOrdersWithDescriptions().map { it.toOrder().getOrElse { e -> return failure(e) } }
         return success(orders)

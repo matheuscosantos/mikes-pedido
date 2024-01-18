@@ -12,12 +12,31 @@ spring:
   sql:
     init:
       platform: postgres
+  redis:
+    host: ${REDIS_HOST}
+    port: 6379
+    timeout: 10000
+  cache:
+    redis:
+      time-to-live: 5000
 
 management:
   endpoints:
     web:
       exposure:
         include: health
+
+cloud:
+  aws:
+    region:
+      static: us-east-2
+    credentials:
+      accessKey: todoooooooo
+      secretKey: todoooooooo
+  elasticache:
+    clusters:
+      - name: mikes-redis-cluster
+        expiration: 1000
 
 sns:
   orderReceived:

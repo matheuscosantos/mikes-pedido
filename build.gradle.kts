@@ -24,6 +24,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("com.amazonaws:aws-java-sdk-elasticache:1.12.636")
 
     implementation("io.awspring.cloud:spring-cloud-aws-starter-sns:3.1.0")
     implementation("io.awspring.cloud:spring-cloud-aws-starter-sqs:3.1.0")
@@ -31,6 +33,7 @@ dependencies {
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.1")
 
     runtimeOnly("org.postgresql:postgresql:42.6.0")
     runtimeOnly("com.zaxxer:HikariCP:5.0.1")
