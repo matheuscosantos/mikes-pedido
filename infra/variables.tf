@@ -33,6 +33,11 @@ variable "sns_name_status_pagamento" {
   default = "status-pagamento"
 }
 
+variable "sns_name_status_producao_alterado" {
+  type    = string
+  default = "status_producao_alterado"
+}
+
 variable "sqs_name_pagamento_pedido" {
   type    = string
   default = "pagamento-pedido"

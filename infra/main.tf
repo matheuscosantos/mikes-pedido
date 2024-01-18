@@ -116,16 +116,16 @@ resource "aws_sns_topic_subscription" "sqs_pagamento_pedido_subscription_sns_sta
   raw_message_delivery = true
 }
 
-#data "aws_sns_topic" "?" {
-#    name = var.?
-#}
+data "aws_sns_topic" "sns_topic_status_producao_alterado" {
+    name = var.sns_name_status_producao_alterado
+}
 
-#resource "aws_sns_topic_subscription" "?" {
-#  topic_arn            = data.aws_sns_topic.?.arn
-#  protocol             = "sqs"
-#  endpoint             = aws_sqs_queue.sqs_producao_pedido.arn
-#  raw_message_delivery = true
-#}
+resource "aws_sns_topic_subscription" "sqs_producao_pedido_subscription_sns_status_producao_alterado" {
+  topic_arn            = data.aws_sns_topic.sns_topic_status_producao_alterado.arn
+  protocol             = "sqs"
+  endpoint             = aws_sqs_queue.sqs_producao_pedido.arn
+  raw_message_delivery = true
+}
 
 # -- task definition
 
