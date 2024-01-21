@@ -25,11 +25,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
-    implementation("com.amazonaws:aws-java-sdk-elasticache:1.12.636")
 
-    implementation("io.awspring.cloud:spring-cloud-aws-starter-sns:3.1.0")
-    implementation("io.awspring.cloud:spring-cloud-aws-starter-sqs:3.1.0")
-    implementation("io.awspring.cloud:spring-cloud-aws-starter:3.1.0")
+    implementation(platform("io.awspring.cloud:spring-cloud-aws-dependencies:3.1.0"))
+    implementation("io.awspring.cloud:spring-cloud-aws-starter-sns")
+    implementation("io.awspring.cloud:spring-cloud-aws-starter-sqs")
+    implementation("io.awspring.cloud:spring-cloud-aws-starter")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -38,7 +38,13 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql:42.6.0")
     runtimeOnly("com.zaxxer:HikariCP:5.0.1")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation(platform("org.junit:junit-bom:5.10.1"))
+    testImplementation(platform("io.cucumber:cucumber-bom:7.15.0"))
+    testImplementation("io.cucumber:cucumber-java")
+    testImplementation("io.cucumber:cucumber-junit-platform-engine")
+    testImplementation("org.junit.platform:junit-platform-suite")
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("io.mockk:mockk:1.13.9")
 }
 
 tasks.withType<KotlinCompile> {
@@ -54,4 +60,5 @@ tasks.bootJar {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    systemProperty("cucumber.junit-platform.naming-strategy", "long")
 }
