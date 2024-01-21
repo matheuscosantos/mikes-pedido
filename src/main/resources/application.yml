@@ -12,10 +12,11 @@ spring:
   sql:
     init:
       platform: postgres
-  redis:
-    host: ${REDIS_HOST}
-    port: 6379
-    timeout: 10000
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: 6379
+      timeout: 10000
   cache:
     redis:
       time-to-live: 5000
