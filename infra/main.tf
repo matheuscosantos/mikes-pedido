@@ -175,6 +175,39 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
   })
 }
 
+# -- target group
+
+data "aws_vpc" "private_vpc" {
+  id = var.vpc_id
+}
+
+data "aws_lb" "ecs_alb" {
+  name = "${var.infra_name}-ecs-alb"
+}
+
+resource "aws_lb_target_group" "lb_target_group" {
+  name        = "${var.name}-lb-tg"
+  port        = 8080
+  protocol    = "HTTP"
+  target_type = "ip"
+  vpc_id      = data.aws_vpc.private_vpc.id
+
+  health_check {
+    path = "/actuator/health"
+  }
+}
+
+resource "aws_lb_listener" "lb_listener" {
+  load_balancer_arn = data.aws_lb.ecs_alb.arn
+  port              = 8080
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.lb_target_group.arn
+  }
+}
+
 # -- service
 
 data "aws_ecs_cluster" "ecs_cluster" {
@@ -183,10 +216,6 @@ data "aws_ecs_cluster" "ecs_cluster" {
 
 data "aws_security_group" "security_group" {
   name  = "${var.infra_name}_security_group"
-}
-
-data "aws_lb_target_group" "lb_target_group" {
-  name = "${var.infra_name}-lb-target-group"
 }
 
 resource "aws_ecs_service" "ecs_service" {
@@ -201,7 +230,7 @@ resource "aws_ecs_service" "ecs_service" {
   }
 
   load_balancer {
-    target_group_arn = data.aws_lb_target_group.lb_target_group.arn
+    target_group_arn = aws_lb_target_group.lb_target_group.arn
     container_name   = "${var.name}-container"
     container_port   = 8080
   }
@@ -217,3 +246,4 @@ resource "aws_ecs_service" "ecs_service" {
     weight            = 100
   }
 }
+

@@ -3,6 +3,11 @@ variable "region" {
   default = "us-east-2"
 }
 
+variable "vpc_id" {
+  type    = string
+  default = "vpc-0ffc09ae69916058b"
+}
+
 variable "infra_name" {
   type    = string
   default = "mikes"
