@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "3.2.1"
     id("io.spring.dependency-management") version "1.1.4"
+    id("jacoco")
 
     kotlin("jvm") version "1.9.21"
     kotlin("plugin.spring") version "1.9.21"
@@ -14,6 +15,10 @@ version = "0.0.1-SNAPSHOT"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
+}
+
+jacoco {
+    toolVersion = "0.8.11"
 }
 
 repositories {
@@ -61,4 +66,13 @@ tasks.bootJar {
 tasks.withType<Test> {
     useJUnitPlatform()
     systemProperty("cucumber.junit-platform.naming-strategy", "long")
+    finalizedBy("jacocoTestReport")
+}
+
+tasks.jacocoTestReport {
+    dependsOn("test")
+    reports {
+        html.required = true
+        xml.required = true
+    }
 }
