@@ -1,4 +1,4 @@
-Feature: Fazer pedido
+Feature: Criar pedido
 
   Scenario: Pedido com cadastro aceito
     Given Cliente esta fazendo um pedido
