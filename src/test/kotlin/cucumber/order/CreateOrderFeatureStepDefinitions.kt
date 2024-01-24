@@ -25,7 +25,7 @@ import java.util.UUID
 import kotlin.Result.Companion.failure
 import kotlin.Result.Companion.success
 
-class CreateOrderFeatureStepDefinitions {
+internal class CreateOrderFeatureStepDefinitions {
     private lateinit var orderRepository: OrderRepository
     private lateinit var orderDomainMapper: OrderDomainMapper
     private lateinit var findCustomerService: FindCustomerService
