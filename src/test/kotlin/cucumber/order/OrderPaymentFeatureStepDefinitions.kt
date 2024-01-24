@@ -6,6 +6,7 @@ import com.mikes.pedido.application.core.domain.order.valueobject.OrderPaymentSt
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderStatus
 import com.mikes.pedido.application.core.usecase.order.OrderPaymentUseCase
 import com.mikes.pedido.application.port.inbound.order.FindOrderService
+import com.mikes.pedido.application.port.inbound.order.OrderPaymentService
 import com.mikes.pedido.application.port.inbound.order.dto.OrderPaymentInboundRequest
 import com.mikes.pedido.application.port.outbound.order.OrderConfirmedMessenger
 import com.mikes.pedido.application.port.outbound.order.OrderRepository
@@ -23,7 +24,7 @@ internal class OrderPaymentFeatureStepDefinitions {
     private lateinit var orderConfirmedMessenger: OrderConfirmedMessenger
     private lateinit var findOrderService: FindOrderService
     private lateinit var orderRepository: OrderRepository
-    private lateinit var orderPaymentUseCase: OrderPaymentUseCase
+    private lateinit var orderPaymentService: OrderPaymentService
     private lateinit var order: Order
 
     @Given("Aplicacao esta processando um pagamento")
@@ -32,7 +33,7 @@ internal class OrderPaymentFeatureStepDefinitions {
         findOrderService = mockk<FindOrderService>()
         orderRepository = mockk<OrderRepository>()
 
-        orderPaymentUseCase =
+        orderPaymentService =
             OrderPaymentUseCase(
                 orderConfirmedMessenger,
                 findOrderService,
@@ -49,7 +50,7 @@ internal class OrderPaymentFeatureStepDefinitions {
         order = mockOrder(orderId, OrderStatus.RECEIVED)
         every { findOrderService.find(any()) } returns success(order)
 
-        orderPaymentUseCase.process(OrderPaymentInboundRequest(order.id.value, orderPaymentStatus))
+        orderPaymentService.process(OrderPaymentInboundRequest(order.id.value, orderPaymentStatus))
     }
 
     @When("Pedido que nao esta aguardando pagamento recebe o callback de status {string}")
@@ -58,7 +59,7 @@ internal class OrderPaymentFeatureStepDefinitions {
         order = mockOrder(orderId, OrderStatus.FINISHED)
         every { findOrderService.find(any()) } returns success(order)
 
-        orderPaymentUseCase.process(OrderPaymentInboundRequest(order.id.value, orderPaymentStatus))
+        orderPaymentService.process(OrderPaymentInboundRequest(order.id.value, orderPaymentStatus))
     }
 
     @When("Pedido inexistente recebe callback")
@@ -67,7 +68,7 @@ internal class OrderPaymentFeatureStepDefinitions {
         order = mockOrder(orderId, OrderStatus.FINISHED)
         every { findOrderService.find(any()) } returns failure(mockk())
 
-        orderPaymentUseCase.process(OrderPaymentInboundRequest(order.id.value, OrderPaymentStatus.ACCEPTED.name))
+        orderPaymentService.process(OrderPaymentInboundRequest(order.id.value, OrderPaymentStatus.ACCEPTED.name))
     }
 
     @Then("Atualiza pedido para status {string}")

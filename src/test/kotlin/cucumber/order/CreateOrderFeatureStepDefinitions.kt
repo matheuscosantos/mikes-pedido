@@ -8,6 +8,7 @@ import com.mikes.pedido.application.core.domain.order.valueobject.OrderPrice
 import com.mikes.pedido.application.core.usecase.order.CreateOrderUseCase
 import com.mikes.pedido.application.mapper.order.OrderDomainMapper
 import com.mikes.pedido.application.port.inbound.customer.FindCustomerService
+import com.mikes.pedido.application.port.inbound.order.CreateOrderService
 import com.mikes.pedido.application.port.inbound.order.dto.CreateOrderInboundRequest
 import com.mikes.pedido.application.port.inbound.order.dto.CreateOrderItemInboundRequest
 import com.mikes.pedido.application.port.inbound.product.FindProductService
@@ -31,7 +32,7 @@ internal class CreateOrderFeatureStepDefinitions {
     private lateinit var findCustomerService: FindCustomerService
     private lateinit var findProductService: FindProductService
     private lateinit var orderReceivedMessenger: OrderReceivedMessenger
-    private lateinit var createOrderUseCase: CreateOrderUseCase
+    private lateinit var createOrderService: CreateOrderService
 
     @Given("Cliente esta fazendo um pedido")
     fun `cliente esta fazendo um pedido`() {
@@ -41,7 +42,7 @@ internal class CreateOrderFeatureStepDefinitions {
         findProductService = mockk<FindProductService>()
         orderReceivedMessenger = mockk<OrderReceivedMessenger>()
 
-        createOrderUseCase =
+        createOrderService =
             CreateOrderUseCase(
                 orderRepository,
                 orderDomainMapper,
@@ -73,7 +74,7 @@ internal class CreateOrderFeatureStepDefinitions {
 
         val createOrderInboundRequest = CreateOrderInboundRequest(cpf, createOrderItemsInboundRequest)
 
-        createOrderUseCase.create(createOrderInboundRequest)
+        createOrderService.create(createOrderInboundRequest)
     }
 
     @When("Cliente informa cadastro inexistente")
@@ -87,7 +88,7 @@ internal class CreateOrderFeatureStepDefinitions {
 
         val createOrderInboundRequest = CreateOrderInboundRequest(cpf, createOrderItemsInboundRequest)
 
-        createOrderUseCase.create(createOrderInboundRequest)
+        createOrderService.create(createOrderInboundRequest)
     }
 
     @When("Cliente nao informa cadastro")
@@ -99,7 +100,7 @@ internal class CreateOrderFeatureStepDefinitions {
 
         val createOrderInboundRequest = CreateOrderInboundRequest(null, createOrderItemsInboundRequest)
 
-        createOrderUseCase.create(createOrderInboundRequest)
+        createOrderService.create(createOrderInboundRequest)
     }
 
     @When("Cliente informa produto inexistente")
@@ -116,7 +117,7 @@ internal class CreateOrderFeatureStepDefinitions {
 
         val createOrderInboundRequest = CreateOrderInboundRequest(cpf, createOrderItemsInboundRequest)
 
-        createOrderUseCase.create(createOrderInboundRequest)
+        createOrderService.create(createOrderInboundRequest)
     }
 
     @Then("Salva pedido")

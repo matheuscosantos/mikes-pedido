@@ -46,8 +46,7 @@ class OrderProductionUseCase(
     }
 
     private fun isInvalidStatus(orderStatus: OrderStatus): Boolean {
-        return orderStatus == OrderStatus.RECEIVED ||
-            orderStatus == OrderStatus.PAID
+        return orderStatus == OrderStatus.RECEIVED
     }
 
     private fun updateStatus(

@@ -1,4 +1,4 @@
-Feature: Pagar pedido
+Feature: Pagamento pedido
 
   Scenario: Pedido aguardando pagamento recebe callback de que o pagamento foi aceito
     Given Aplicacao esta processando um pagamento
