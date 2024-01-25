@@ -8,6 +8,8 @@ plugins {
     kotlin("jvm") version "1.9.21"
     kotlin("plugin.spring") version "1.9.21"
     kotlin("plugin.jpa") version "1.9.21"
+
+    id("org.sonarqube") version "4.4.1.3373"
 }
 
 group = "com.mikes"
@@ -79,5 +81,16 @@ tasks.jacocoTestReport {
     reports {
         html.required = true
         xml.required = true
+    }
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "matheuscosantos_mikes-pedido")
+        property("sonar.organization", "matheuscosantos")
+        property("sonar.junit.reportPaths", "build/test-results/test")
+        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
+        property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.gradle.skipCompile", "true") // Skip implicit compilation
     }
 }
