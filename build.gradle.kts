@@ -25,6 +25,11 @@ repositories {
     mavenCentral()
 }
 
+val jacksonDataTypeVersion: String by project
+val postgresqlVersion: String by project
+val hikariVersion: String by project
+val mockkVersion: String by project
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -38,10 +43,10 @@ dependencies {
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.1")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion")
 
-    runtimeOnly("org.postgresql:postgresql:42.6.0")
-    runtimeOnly("com.zaxxer:HikariCP:5.0.1")
+    runtimeOnly("org.postgresql:postgresql:$postgresqlVersion")
+    runtimeOnly("com.zaxxer:HikariCP:$hikariVersion")
 
     testImplementation(platform("org.junit:junit-bom:5.10.1"))
     testImplementation(platform("io.cucumber:cucumber-bom:7.15.0"))
@@ -49,7 +54,7 @@ dependencies {
     testImplementation("io.cucumber:cucumber-junit-platform-engine")
     testImplementation("org.junit.platform:junit-platform-suite")
     testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("io.mockk:mockk:1.13.9")
+    testImplementation("io.mockk:mockk:$mockkVersion")
 }
 
 tasks.withType<KotlinCompile> {
