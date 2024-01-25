@@ -32,8 +32,8 @@ class DefaultOrderDomainMapper : OrderDomainMapper {
             nullableCpf,
             items,
             orderStatus,
-            LocalDateTime.now(),
-            LocalDateTime.now(),
+            createdAt,
+            updatedAt,
         )
     }
 
