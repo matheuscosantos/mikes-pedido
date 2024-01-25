@@ -12,7 +12,7 @@ import kotlin.Result.Companion.success
 
 internal class CreateCustomerUseCaseTest {
     @Test
-    fun a() {
+    fun `when creating a customer with success, expect creation`() {
         val cpf = "92979654078"
         val exists = false
         val expectedCustomer = mockCustomer(cpf)
