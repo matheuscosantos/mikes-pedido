@@ -1,4 +1,4 @@
-package br.com.fiap.mikes.application.core.usecase.exception.customer
+package com.mikes.pedido.application.core.usecase.exception.customer
 
 import com.mikes.pedido.application.core.usecase.exception.AlreadyExistsException
 

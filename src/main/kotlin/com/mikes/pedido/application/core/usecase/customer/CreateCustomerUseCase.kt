@@ -1,7 +1,7 @@
 package com.mikes.pedido.application.core.usecase.customer
 
-import br.com.fiap.mikes.application.core.usecase.exception.customer.CustomerAlreadyExistsException
 import com.mikes.pedido.application.core.domain.customer.Customer
+import com.mikes.pedido.application.core.usecase.exception.customer.CustomerAlreadyExistsException
 import com.mikes.pedido.application.core.usecase.exception.customer.InvalidCustomerStateException
 import com.mikes.pedido.application.mapper.customer.CustomerDomainMapper
 import com.mikes.pedido.application.port.inbound.customer.CreateCustomerService
