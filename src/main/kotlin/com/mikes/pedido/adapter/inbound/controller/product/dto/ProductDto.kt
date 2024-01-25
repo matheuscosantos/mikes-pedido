@@ -21,7 +21,7 @@ data class ProductDto(
                     id.value,
                     name.value,
                     price.value,
-                    category.value,
+                    category.name,
                     description.value,
                     active,
                     createdAt,

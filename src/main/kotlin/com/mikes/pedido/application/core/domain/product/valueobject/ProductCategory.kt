@@ -4,17 +4,17 @@ import com.mikes.pedido.application.core.domain.exception.product.InvalidProduct
 import kotlin.Result.Companion.failure
 import kotlin.Result.Companion.success
 
-enum class ProductCategory(val value: String) {
-    SNACK("snack"),
-    DRINK("drink"),
-    DESSERT("dessert"),
-    SIDE_DISH("side_dish"),
+enum class ProductCategory {
+    SNACK,
+    DRINK,
+    DESSERT,
+    SIDE_DISH,
     ;
 
     companion object {
-        fun new(value: String): Result<ProductCategory> =
-            entries.firstOrNull { it.value == value }
+        fun new(name: String): Result<ProductCategory> =
+            entries.find { it.name.equals(name, ignoreCase = true) }
                 ?.let { success(it) }
-                ?: failure(InvalidProductCategoryException("$value is not a valid ProductCategory."))
+                ?: failure(InvalidProductCategoryException("$name is not a valid ProductCategory."))
     }
 }
