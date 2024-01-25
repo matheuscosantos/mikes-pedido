@@ -1,4 +1,4 @@
-package br.com.fiap.mikes.application.core.domain.order.valueobject
+package com.mikes.pedido.application.core.domain.order.valueobject
 
 import com.mikes.pedido.application.core.domain.exception.order.InvalidOrderItemIdException
 import java.util.UUID
@@ -7,11 +7,11 @@ import kotlin.Result.Companion.success
 
 @JvmInline
 value class OrderItemId private constructor(val value: String) {
-
     companion object {
         fun new(value: String): Result<OrderItemId> {
-            val uuid = runCatching { UUID.fromString(value) }
-                .getOrElse { return failure(InvalidOrderItemIdException("invalid order item id.")) }
+            val uuid =
+                runCatching { UUID.fromString(value) }
+                    .getOrElse { return failure(InvalidOrderItemIdException("invalid order item id.")) }
 
             return success(OrderItemId(uuid.toString()))
         }

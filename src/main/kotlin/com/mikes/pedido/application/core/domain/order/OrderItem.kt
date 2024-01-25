@@ -1,6 +1,6 @@
 package com.mikes.pedido.application.core.domain.order
 
-import br.com.fiap.mikes.application.core.domain.order.valueobject.OrderItemId
+import com.mikes.pedido.application.core.domain.order.valueobject.OrderItemId
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderItemPrice
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderItemQuantity
 import com.mikes.pedido.application.core.domain.product.valueobject.ProductName
@@ -16,7 +16,6 @@ class OrderItem private constructor(
     val quantity: OrderItemQuantity,
     val price: OrderItemPrice,
 ) : Serializable {
-
     companion object {
         fun new(
             id: OrderItemId,
@@ -29,7 +28,10 @@ class OrderItem private constructor(
             return success(OrderItem(id, productName, productPrice, quantity, price))
         }
 
-        private fun calculatePrice(productPrice: ProductPrice, quantity: OrderItemQuantity): Result<OrderItemPrice> {
+        private fun calculatePrice(
+            productPrice: ProductPrice,
+            quantity: OrderItemQuantity,
+        ): Result<OrderItemPrice> {
             val priceValue = productPrice.value * quantity.value.toBigDecimal()
             return OrderItemPrice.new(priceValue)
         }
