@@ -45,7 +45,6 @@ class CustomerControllerTest {
             createdAt = date,
             updatedAt = date,
             personName = PersonName.new("teste").getOrThrow(),
-
         )
 
         val customerDto = CustomerDto(
