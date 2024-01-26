@@ -76,6 +76,32 @@ tasks.withType<Test> {
     finalizedBy("jacocoTestReport")
 }
 
+configurations {
+    val cucumberRuntime by creating {
+        extendsFrom(
+            configurations.testImplementation.get(),
+            configurations.implementation.get(),
+            configurations.runtimeOnly.get(),
+        )
+    }
+}
+
+task("behaviorTest") {
+    dependsOn("assemble", "testClasses")
+    doLast {
+        javaexec {
+            mainClass = "io.cucumber.core.cli.Main"
+            classpath = configurations["cucumberRuntime"] + sourceSets.main.get().output + sourceSets.test.get().output
+            args =
+                listOf(
+                    "--plugin", "pretty",
+                    "--glue", "classpath:cucumber",
+                    "src/test/resources/cucumber",
+                )
+        }
+    }
+}
+
 tasks.jacocoTestReport {
     dependsOn("test")
     reports {
@@ -85,6 +111,12 @@ tasks.jacocoTestReport {
 }
 
 sonar {
+    val exclusions =
+        listOf(
+            "**/Application.kt",
+            "**/exception/**",
+        )
+
     properties {
         property("sonar.projectKey", "matheuscosantos_mikes-pedido")
         property("sonar.organization", "matheuscosantos")
@@ -92,5 +124,6 @@ sonar {
         property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
         property("sonar.host.url", "https://sonarcloud.io")
         property("sonar.gradle.skipCompile", "true") // Skip implicit compilation
+        property("sonar.coverage.exclusions", exclusions)
     }
 }
