@@ -114,7 +114,6 @@ sonar {
     val exclusions =
         listOf(
             "**/Application.kt",
-            "**/exception/**",
         )
 
     properties {
