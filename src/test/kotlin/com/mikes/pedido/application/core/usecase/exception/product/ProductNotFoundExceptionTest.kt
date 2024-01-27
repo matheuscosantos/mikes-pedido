@@ -1,24 +1,22 @@
-package com.mikes.pedido.application.core.usecase.customer.exception
+package com.mikes.pedido.application.core.usecase.exception.product
 
 import com.mikes.pedido.application.core.usecase.exception.NotFoundException
-import com.mikes.pedido.application.core.usecase.exception.order.OrderNotFoundException
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class OrderNotFoundExceptionTest {
-
+class ProductNotFoundExceptionTest {
     @Test
     fun testExceptionMessage() {
-        val exceptionMessage = "Order not found"
+        val exceptionMessage = "Product not found"
 
         val notFoundException = mockk<NotFoundException>(relaxed = true)
 
-        val orderNotFoundException = OrderNotFoundException(exceptionMessage)
+        val productNotFoundException = ProductNotFoundException(exceptionMessage)
 
         every { notFoundException.message } returns exceptionMessage
 
-        assertEquals(exceptionMessage, orderNotFoundException.message)
+        assertEquals(exceptionMessage, productNotFoundException.message)
     }
 }

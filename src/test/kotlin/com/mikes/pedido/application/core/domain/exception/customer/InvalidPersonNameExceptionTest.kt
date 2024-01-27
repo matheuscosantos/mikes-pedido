@@ -1,24 +1,22 @@
-package com.mikes.pedido.application.core.usecase.customer.exception
+package com.mikes.pedido.application.core.domain.exception.customer
 
 import com.mikes.pedido.application.core.domain.exception.InvalidValueException
-import com.mikes.pedido.application.core.domain.exception.customer.InvalidEmailException
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class InvalidEmailExceptionTest {
-
+class InvalidPersonNameExceptionTest {
     @Test
     fun testExceptionMessage() {
-        val exceptionMessage = "Invalid email"
+        val exceptionMessage = "Invalid person name"
 
         val invalidValueException = mockk<InvalidValueException>(relaxed = true)
 
-        val invalidEmailException = InvalidEmailException(exceptionMessage)
+        val invalidPersonNameException = InvalidPersonNameException(exceptionMessage)
 
         every { invalidValueException.message } returns exceptionMessage
 
-        assertEquals(exceptionMessage, invalidEmailException.message)
+        assertEquals(exceptionMessage, invalidPersonNameException.message)
     }
 }

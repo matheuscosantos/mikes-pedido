@@ -1,24 +1,21 @@
-package com.mikes.pedido.application.core.usecase.customer.exception
-
+package com.mikes.pedido.application.core.usecase.exception.customer
 import com.mikes.pedido.application.core.usecase.exception.InvalidDomainStateException
-import com.mikes.pedido.application.core.usecase.exception.product.InvalidProductStateException
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class InvalidProductStateExceptionTest {
-
+class InvalidCustomerStateExceptionTest {
     @Test
     fun testExceptionMessage() {
-        val exceptionMessage = "Invalid product state"
+        val exceptionMessage = "Invalid customer state"
 
         val invalidDomainStateException = mockk<InvalidDomainStateException>(relaxed = true)
 
-        val invalidProductStateException = InvalidProductStateException(exceptionMessage)
+        val invalidCustomerStateException = InvalidCustomerStateException(exceptionMessage)
 
         every { invalidDomainStateException.message } returns exceptionMessage
 
-        assertEquals(exceptionMessage, invalidProductStateException.message)
+        assertEquals(exceptionMessage, invalidCustomerStateException.message)
     }
 }

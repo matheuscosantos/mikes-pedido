@@ -1,14 +1,12 @@
-package com.mikes.pedido.application.core.usecase.customer.exception
+package com.mikes.pedido.application.core.usecase.exception.customer
 
 import com.mikes.pedido.application.core.usecase.exception.NotFoundException
-import com.mikes.pedido.application.core.usecase.exception.customer.CustomerNotFoundException
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class CustomerNotFoundExceptionTest {
-
     @Test
     fun testExceptionMessage() {
         val exceptionMessage = "Customer not found"
