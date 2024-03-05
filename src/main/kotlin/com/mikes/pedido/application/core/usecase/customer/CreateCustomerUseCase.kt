@@ -1,6 +1,7 @@
 package com.mikes.pedido.application.core.usecase.customer
 
 import com.mikes.pedido.application.core.domain.customer.Customer
+import com.mikes.pedido.application.core.domain.customer.valueobject.CustomerId
 import com.mikes.pedido.application.core.usecase.exception.customer.CustomerAlreadyExistsException
 import com.mikes.pedido.application.core.usecase.exception.customer.InvalidCustomerStateException
 import com.mikes.pedido.application.mapper.customer.CustomerDomainMapper
@@ -32,9 +33,8 @@ class CreateCustomerUseCase(
     }
 
     private fun CreateCustomerInboundRequest.newCustomer(): Result<Customer> {
-        val active = true
         val now = LocalDateTime.now()
-        return customerDomainMapper.new(this, active, now, now)
+        return customerDomainMapper.new(this, CustomerId.generate(), now, now)
     }
 
     private fun CustomerOutboundResponse.toCustomer(): Result<Customer> {

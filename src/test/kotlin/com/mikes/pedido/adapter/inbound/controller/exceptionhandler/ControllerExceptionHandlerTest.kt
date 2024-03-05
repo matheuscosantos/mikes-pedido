@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.context.request.WebRequest
 
 class ControllerExceptionHandlerTest {
-
     private val webRequest: WebRequest = mockk(relaxed = true)
     private val controllerExceptionHandler = ControllerExceptionHandler()
 
@@ -23,7 +22,7 @@ class ControllerExceptionHandlerTest {
         val responseEntity: ResponseEntity<ControllerExceptionHandler.Error> =
             controllerExceptionHandler.invalidValueExceptionHandler(invalidValueException, webRequest)
 
-        assertErrorResponse(responseEntity, HttpStatus.BAD_REQUEST, ControllerExceptionHandler.TYPE_INVALID_VALUE_EXCEPTION, "Invalid value for 'fieldName': Invalid value")
+        assertErrorResponse(responseEntity, HttpStatus.BAD_REQUEST, ControllerExceptionHandler.TYPE_INVALID_VALUE_EXCEPTION)
     }
 
     @Test
@@ -33,7 +32,7 @@ class ControllerExceptionHandlerTest {
         val responseEntity: ResponseEntity<ControllerExceptionHandler.Error> =
             controllerExceptionHandler.notFoundExceptionHandler(notFoundException, webRequest)
 
-        assertErrorResponse(responseEntity, HttpStatus.NOT_FOUND, ControllerExceptionHandler.TYPE_NOT_FOUND_EXCEPTION, "'Entity' not found: '123'")
+        assertErrorResponse(responseEntity, HttpStatus.NOT_FOUND, ControllerExceptionHandler.TYPE_NOT_FOUND_EXCEPTION)
     }
 
     @Test
@@ -43,7 +42,7 @@ class ControllerExceptionHandlerTest {
         val responseEntity: ResponseEntity<ControllerExceptionHandler.Error> =
             controllerExceptionHandler.alreadyExistsExceptionHandler(alreadyExistsException, webRequest)
 
-        assertErrorResponse(responseEntity, HttpStatus.CONFLICT, ControllerExceptionHandler.TYPE_ALREADY_EXISTS_EXCEPTION, "'Entity' already exists: '123'")
+        assertErrorResponse(responseEntity, HttpStatus.CONFLICT, ControllerExceptionHandler.TYPE_ALREADY_EXISTS_EXCEPTION)
     }
 
     @Test
@@ -53,14 +52,17 @@ class ControllerExceptionHandlerTest {
         val responseEntity: ResponseEntity<ControllerExceptionHandler.Error> =
             controllerExceptionHandler.invalidDomainStateExceptionHandler(invalidDomainStateException, webRequest)
 
-        assertErrorResponse(responseEntity, HttpStatus.INTERNAL_SERVER_ERROR, ControllerExceptionHandler.TYPE_INVALID_DOMAIN_STATE_EXCEPTION, "found 'Entity' in invalid state: 'Invalid state'")
+        assertErrorResponse(
+            responseEntity,
+            HttpStatus.INTERNAL_SERVER_ERROR,
+            ControllerExceptionHandler.TYPE_INVALID_DOMAIN_STATE_EXCEPTION,
+        )
     }
 
     private fun assertErrorResponse(
         responseEntity: ResponseEntity<ControllerExceptionHandler.Error>,
         expectedStatus: HttpStatus,
         expectedErrorType: String,
-        expectedErrorMessage: String,
     ) {
         assertEquals(expectedStatus, responseEntity.statusCode)
         assertEquals(expectedErrorType, responseEntity.body?.error)

@@ -141,7 +141,6 @@ class OrderControllerTest {
 
     @Test
     fun `test find order by id`() {
-        val orderId = OrderId.new("92ce2145-defc-4bc9-9f77-e45e20b75024").getOrThrow()
         val order =
             Order.new(
                 id = OrderId.new("92ce2145-defc-4bc9-9f77-e45e20b75024").getOrThrow(),
