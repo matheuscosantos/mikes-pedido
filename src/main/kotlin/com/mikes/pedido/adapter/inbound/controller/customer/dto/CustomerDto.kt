@@ -4,10 +4,10 @@ import com.mikes.pedido.application.core.domain.customer.Customer
 import java.time.LocalDateTime
 
 data class CustomerDto(
+    val id: String,
     val cpf: String,
     val name: String,
     val email: String,
-    val active: Boolean,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
 ) {
@@ -15,10 +15,10 @@ data class CustomerDto(
         fun from(customer: Customer): CustomerDto =
             with(customer) {
                 return CustomerDto(
+                    id.value,
                     cpf.value,
                     name.value,
                     email.value,
-                    active,
                     createdAt,
                     updatedAt,
                 )

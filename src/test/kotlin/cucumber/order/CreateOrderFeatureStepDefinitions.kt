@@ -1,7 +1,7 @@
 package cucumber.order
 
 import com.mikes.pedido.application.core.domain.customer.Customer
-import com.mikes.pedido.application.core.domain.customer.valueobject.Cpf
+import com.mikes.pedido.application.core.domain.customer.valueobject.CustomerId
 import com.mikes.pedido.application.core.domain.order.Order
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderId
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderPrice
@@ -62,17 +62,17 @@ internal class CreateOrderFeatureStepDefinitions {
 
     @When("Cliente informa cadastro existente")
     fun `cliente informa cadastro existente`() {
-        val cpf = "92979654078"
+        val customerId = CustomerId.generate()
 
         val createOrderItemsInboundRequest = listOf(CreateOrderItemInboundRequest("", 1))
 
         // customer
-        every { findCustomerService.find(any(), any()) } returns success(mockCustomer(cpf))
+        every { findCustomerService.find(any()) } returns success(mockCustomer(customerId))
 
         // order items
         every { findProductService.find(any(), any()) } returns success(mockk())
 
-        val createOrderInboundRequest = CreateOrderInboundRequest(cpf, createOrderItemsInboundRequest)
+        val createOrderInboundRequest = CreateOrderInboundRequest(customerId.value, createOrderItemsInboundRequest)
 
         createOrderService.create(createOrderInboundRequest)
     }
@@ -84,7 +84,7 @@ internal class CreateOrderFeatureStepDefinitions {
         val createOrderItemsInboundRequest = listOf(CreateOrderItemInboundRequest("", 1))
 
         // customer
-        every { findCustomerService.find(any(), any()) } returns failure(mockk())
+        every { findCustomerService.find(any()) } returns failure(mockk())
 
         val createOrderInboundRequest = CreateOrderInboundRequest(cpf, createOrderItemsInboundRequest)
 
@@ -105,17 +105,17 @@ internal class CreateOrderFeatureStepDefinitions {
 
     @When("Cliente informa produto inexistente")
     fun `cliente informa produto inexistente`() {
-        val cpf = "92979654078"
+        val customerId = CustomerId.generate()
 
         val createOrderItemsInboundRequest = listOf(CreateOrderItemInboundRequest("", 1))
 
         // customer
-        every { findCustomerService.find(any(), any()) } returns success(mockCustomer(cpf))
+        every { findCustomerService.find(any()) } returns success(mockCustomer(customerId))
 
         // order items
         every { findProductService.find(any(), any()) } returns failure(mockk())
 
-        val createOrderInboundRequest = CreateOrderInboundRequest(cpf, createOrderItemsInboundRequest)
+        val createOrderInboundRequest = CreateOrderInboundRequest(customerId.value, createOrderItemsInboundRequest)
 
         createOrderService.create(createOrderInboundRequest)
     }
@@ -140,9 +140,9 @@ internal class CreateOrderFeatureStepDefinitions {
         verify(exactly = 0) { orderReceivedMessenger.send(any()) }
     }
 
-    private fun mockCustomer(cpf: String) =
+    private fun mockCustomer(customerId: CustomerId) =
         mockk<Customer>().also {
-            every { it.cpf } returns Cpf.new(cpf).getOrThrow()
+            every { it.id } returns customerId
         }
 
     private fun mockOrder() =

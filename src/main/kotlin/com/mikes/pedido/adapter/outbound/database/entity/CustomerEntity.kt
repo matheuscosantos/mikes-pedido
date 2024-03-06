@@ -9,35 +9,32 @@ import java.time.LocalDateTime
 
 @Entity(name = "cliente")
 data class CustomerEntity(
-
     @Id
+    @Column(name = "id", length = 36)
+    val id: String,
     @Column(name = "cpf", length = 11)
     val cpf: String,
-
     @Column(name = "nome", length = 255)
     val name: String,
-
     @Column(name = "email", length = 255)
     val email: String,
-
     @Column(name = "ativo")
     val active: Boolean,
-
     @Column(name = "criado_em")
     val createdAt: LocalDateTime,
-
     @Column(name = "atualizado_em")
     val updatedAt: LocalDateTime,
 ) {
-
     companion object {
-        fun from(customer: Customer): CustomerEntity = with(customer) {
-            return CustomerEntity(cpf.value, name.value, email.value, active, createdAt, updatedAt)
-        }
+        fun from(customer: Customer): CustomerEntity =
+            with(customer) {
+                return CustomerEntity(id.value, cpf.value, name.value, email.value, active, createdAt, updatedAt)
+            }
     }
 
     fun toOutbound(): CustomerOutboundResponse {
         return CustomerOutboundResponse(
+            id,
             cpf,
             name,
             email,

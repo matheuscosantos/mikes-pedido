@@ -6,10 +6,10 @@ import kotlin.Result.Companion.success
 
 @JvmInline
 value class PersonName private constructor(val value: String) {
-
     companion object {
-
         const val MAX_LENGTH = 255
+
+        fun anonymous() = PersonName("")
 
         fun new(value: String): Result<PersonName> {
             return value.validated()
@@ -17,9 +17,15 @@ value class PersonName private constructor(val value: String) {
         }
 
         private fun String.validated(): Result<String> {
-            if (isEmpty()) { return failure(InvalidPersonNameException("empty person name.")) }
-            if (isTooBig()) { return failure(InvalidPersonNameException("person name cannot be bigger than $MAX_LENGTH.")) }
-            if (!isSanitized()) { return failure(InvalidPersonNameException("person name cannot start or end with whitespace.")) }
+            if (isEmpty()) {
+                return failure(InvalidPersonNameException("empty person name."))
+            }
+            if (isTooBig()) {
+                return failure(InvalidPersonNameException("person name cannot be bigger than $MAX_LENGTH."))
+            }
+            if (!isSanitized()) {
+                return failure(InvalidPersonNameException("person name cannot start or end with whitespace."))
+            }
 
             return success(this)
         }

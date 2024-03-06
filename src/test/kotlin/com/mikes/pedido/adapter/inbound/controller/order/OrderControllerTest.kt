@@ -3,7 +3,7 @@ package com.mikes.pedido.adapter.inbound.controller.order
 import com.mikes.pedido.adapter.inbound.controller.order.dto.CreateOrderRequest
 import com.mikes.pedido.adapter.inbound.controller.order.dto.OrderDto
 import com.mikes.pedido.adapter.inbound.controller.order.dto.OrderItemDto
-import com.mikes.pedido.application.core.domain.customer.valueobject.Cpf
+import com.mikes.pedido.application.core.domain.customer.valueobject.CustomerId
 import com.mikes.pedido.application.core.domain.order.Order
 import com.mikes.pedido.application.core.domain.order.OrderItem
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderId
@@ -39,11 +39,13 @@ class OrderControllerTest {
 
     @Test
     fun `test find orders with descriptions`() {
+        val customerId = CustomerId.generate()
+
         val orderDto =
             OrderDto(
                 id = "92ce2145-defc-4bc9-9f77-e45e20b75024",
                 number = 1L,
-                cpf = "26777903003",
+                customerId = customerId.value,
                 orderItems =
                     listOf(
                         OrderItemDto(
@@ -65,7 +67,7 @@ class OrderControllerTest {
                 Order.new(
                     id = OrderId.new("92ce2145-defc-4bc9-9f77-e45e20b75024").getOrThrow(),
                     number = OrderNumber.new(1L).getOrThrow(),
-                    cpf = Cpf.new("26777903003").getOrThrow(),
+                    customerId = customerId,
                     items =
                         listOf(
                             OrderItem.new(
@@ -89,16 +91,18 @@ class OrderControllerTest {
 
     @Test
     fun `test create order`() {
+        val customerId = CustomerId.generate()
+
         val createOrderRequest =
             CreateOrderRequest(
-                cpf = "26777903003",
+                customerId = customerId.value,
                 listOf(),
             )
         val order =
             Order.new(
                 id = OrderId.new("92ce2145-defc-4bc9-9f77-e45e20b75024").getOrThrow(),
                 number = OrderNumber.new(1L).getOrThrow(),
-                cpf = Cpf.new("26777903003").getOrThrow(),
+                customerId = customerId,
                 items =
                     listOf(
                         OrderItem.new(
@@ -116,7 +120,7 @@ class OrderControllerTest {
             OrderDto(
                 id = "92ce2145-defc-4bc9-9f77-e45e20b75024",
                 number = 1L,
-                cpf = "26777903003",
+                customerId = customerId.value,
                 orderItems =
                     listOf(
                         OrderItemDto(
@@ -141,12 +145,13 @@ class OrderControllerTest {
 
     @Test
     fun `test find order by id`() {
-        val orderId = OrderId.new("92ce2145-defc-4bc9-9f77-e45e20b75024").getOrThrow()
+        val customerId = CustomerId.generate()
+
         val order =
             Order.new(
                 id = OrderId.new("92ce2145-defc-4bc9-9f77-e45e20b75024").getOrThrow(),
                 number = OrderNumber.new(1L).getOrThrow(),
-                cpf = Cpf.new("26777903003").getOrThrow(),
+                customerId = customerId,
                 items =
                     listOf(
                         OrderItem.new(
@@ -165,7 +170,7 @@ class OrderControllerTest {
             OrderDto(
                 id = "92ce2145-defc-4bc9-9f77-e45e20b75024",
                 number = 1L,
-                cpf = "26777903003",
+                customerId = customerId.value,
                 orderItems =
                     listOf(
                         OrderItemDto(

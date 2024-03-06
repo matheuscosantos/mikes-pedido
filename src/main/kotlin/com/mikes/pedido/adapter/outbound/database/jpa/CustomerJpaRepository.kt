@@ -7,5 +7,8 @@ import java.util.Optional
 
 @Repository
 interface CustomerJpaRepository : JpaRepository<CustomerEntity, String> {
-    fun findByCpfAndActive(cpf: String, active: Boolean): Optional<CustomerEntity>
+    fun findByIdAndActive(
+        id: String,
+        active: Boolean,
+    ): Optional<CustomerEntity>
 }

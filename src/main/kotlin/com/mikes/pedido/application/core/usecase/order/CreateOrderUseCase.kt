@@ -1,6 +1,6 @@
 package com.mikes.pedido.application.core.usecase.order
 
-import com.mikes.pedido.application.core.domain.customer.valueobject.Cpf
+import com.mikes.pedido.application.core.domain.customer.valueobject.CustomerId
 import com.mikes.pedido.application.core.domain.exception.order.InvalidOrderStatusException
 import com.mikes.pedido.application.core.domain.order.Order
 import com.mikes.pedido.application.core.domain.order.OrderItem
@@ -39,8 +39,8 @@ class CreateOrderUseCase(
     }
 
     private fun createOrder(createOrderInboundRequest: CreateOrderInboundRequest): Result<Order> {
-        val nullableCpf =
-            findNullableCpf(createOrderInboundRequest.cpf)
+        val nullableCustomerId =
+            findNullableCustomerId(createOrderInboundRequest.customerId)
                 .getOrElse { return failure(it) }
 
         val orderItems =
@@ -56,7 +56,7 @@ class CreateOrderUseCase(
         return orderDomainMapper.new(
             OrderId.generate(),
             orderNumberValue,
-            nullableCpf,
+            nullableCustomerId,
             orderItems,
             OrderStatus.RECEIVED,
             now,
@@ -64,16 +64,16 @@ class CreateOrderUseCase(
         )
     }
 
-    private fun findNullableCpf(nullableCpf: String?): Result<Cpf?> {
-        val cpf =
-            nullableCpf
+    private fun findNullableCustomerId(nullableCustomerIdValue: String?): Result<CustomerId?> {
+        val customerIdValue =
+            nullableCustomerIdValue
                 ?: return success(null)
 
         val customer =
-            findCustomerService.find(cpf, active = true)
+            findCustomerService.find(customerIdValue)
                 .getOrElse { return failure(it) }
 
-        return success(customer.cpf)
+        return success(customer.id)
     }
 
     private fun createOrderItems(createOrderItemsInboundRequest: List<CreateOrderItemInboundRequest>): Result<List<OrderItem>> {

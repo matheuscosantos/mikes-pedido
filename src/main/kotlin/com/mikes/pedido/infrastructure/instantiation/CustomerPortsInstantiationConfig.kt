@@ -3,10 +3,12 @@ package com.mikes.pedido.infrastructure.instantiation
 import com.mikes.pedido.adapter.outbound.database.CustomerDatabaseRepository
 import com.mikes.pedido.adapter.outbound.database.jpa.CustomerJpaRepository
 import com.mikes.pedido.application.core.usecase.customer.CreateCustomerUseCase
+import com.mikes.pedido.application.core.usecase.customer.DeleteCustomerUseCase
 import com.mikes.pedido.application.core.usecase.customer.FindCustomerUseCase
 import com.mikes.pedido.application.mapper.customer.CustomerDomainMapper
 import com.mikes.pedido.application.mapper.customer.DefaultCustomerDomainMapper
 import com.mikes.pedido.application.port.inbound.customer.CreateCustomerService
+import com.mikes.pedido.application.port.inbound.customer.DeleteCustomerService
 import com.mikes.pedido.application.port.inbound.customer.FindCustomerService
 import com.mikes.pedido.application.port.outbound.customer.CustomerRepository
 import org.springframework.context.annotation.Bean
@@ -41,5 +43,16 @@ class CustomerPortsInstantiationConfig {
         customerDomainMapper: CustomerDomainMapper,
     ): FindCustomerService {
         return FindCustomerUseCase(customerRepository, customerDomainMapper)
+    }
+
+    @Bean
+    fun deleteCustomerService(
+        findCustomerService: FindCustomerService,
+        customerRepository: CustomerRepository,
+    ): DeleteCustomerService {
+        return DeleteCustomerUseCase(
+            findCustomerService,
+            customerRepository,
+        )
     }
 }

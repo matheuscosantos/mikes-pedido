@@ -4,9 +4,11 @@ import com.mikes.pedido.adapter.inbound.controller.customer.dto.CreateCustomerRe
 import com.mikes.pedido.adapter.inbound.controller.customer.dto.CustomerDto
 import com.mikes.pedido.application.core.domain.customer.Customer
 import com.mikes.pedido.application.core.domain.customer.valueobject.Cpf
+import com.mikes.pedido.application.core.domain.customer.valueobject.CustomerId
 import com.mikes.pedido.application.core.domain.customer.valueobject.Email
 import com.mikes.pedido.application.core.domain.customer.valueobject.PersonName
 import com.mikes.pedido.application.port.inbound.customer.CreateCustomerService
+import com.mikes.pedido.application.port.inbound.customer.DeleteCustomerService
 import com.mikes.pedido.application.port.inbound.customer.FindCustomerService
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -20,41 +22,49 @@ import java.time.LocalDateTime
 
 @ExtendWith(MockKExtension::class)
 class CustomerControllerTest {
-
     @MockK
     private lateinit var createCustomerService: CreateCustomerService
 
     @MockK
     private lateinit var findCustomerService: FindCustomerService
 
+    @MockK
+    private lateinit var deleteCustomerService: DeleteCustomerService
+
     @InjectMockKs
     private lateinit var customerController: CustomerController
 
     @Test
     fun `test create customer`() {
-        val createCustomerRequest = CreateCustomerRequest(
-            name = "teste",
-            email = "teste@teste.com",
-            cpf = "16223596073",
-        )
+        val createCustomerRequest =
+            CreateCustomerRequest(
+                name = "teste",
+                email = "teste@teste.com",
+                cpf = "16223596073",
+            )
 
-        val customer = Customer.new(
-            Cpf.new("16223596073").getOrThrow(),
-            active = true,
-            email = Email.new("teste@teste.com").getOrThrow(),
-            createdAt = date,
-            updatedAt = date,
-            personName = PersonName.new("teste").getOrThrow(),
-        )
+        val customerId = CustomerId.generate()
 
-        val customerDto = CustomerDto(
-            "16223596073",
-            active = true,
-            email = "teste@teste.com",
-            createdAt = date,
-            updatedAt = date,
-            name = "teste",
-        )
+        val customer =
+            Customer.new(
+                customerId,
+                Cpf.new("16223596073").getOrThrow(),
+                email = Email.new("teste@teste.com").getOrThrow(),
+                active = true,
+                createdAt = date,
+                updatedAt = date,
+                personName = PersonName.new("teste").getOrThrow(),
+            )
+
+        val customerDto =
+            CustomerDto(
+                customerId.value,
+                "16223596073",
+                email = "teste@teste.com",
+                createdAt = date,
+                updatedAt = date,
+                name = "teste",
+            )
 
         every { createCustomerService.create(any()) } returns customer
 
@@ -66,26 +76,31 @@ class CustomerControllerTest {
 
     @Test
     fun `test find customer`() {
-        val customer = Customer.new(
-            Cpf.new("16223596073").getOrThrow(),
-            active = true,
-            email = Email.new("teste@teste.com").getOrThrow(),
-            createdAt = date,
-            updatedAt = date,
-            personName = PersonName.new("teste").getOrThrow(),
+        val customerId = CustomerId.generate()
 
-        )
+        val customer =
+            Customer.new(
+                customerId,
+                Cpf.new("16223596073").getOrThrow(),
+                email = Email.new("teste@teste.com").getOrThrow(),
+                active = true,
+                createdAt = date,
+                updatedAt = date,
+                personName = PersonName.new("teste").getOrThrow(),
+            )
 
-        val customerDto = CustomerDto(
-            "16223596073",
-            active = true,
-            email = "teste@teste.com",
-            createdAt = date,
-            updatedAt = date,
-            name = "teste",
-        )
-        every { findCustomerService.find("123.456.789-00", true) } returns customer
-        val response = customerController.find("123.456.789-00", true)
+        val customerDto =
+            CustomerDto(
+                customerId.value,
+                "16223596073",
+                email = "teste@teste.com",
+                createdAt = date,
+                updatedAt = date,
+                name = "teste",
+            )
+
+        every { findCustomerService.find(customerId.value) } returns customer
+        val response = customerController.find(customerId.value)
         assertEquals(HttpStatus.OK, response.statusCode)
         assertEquals(customerDto, response.body)
     }

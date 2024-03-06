@@ -6,12 +6,12 @@ import kotlin.Result.Companion.success
 
 @JvmInline
 value class Cpf private constructor(val value: String) {
-
     companion object {
-
         const val LENGTH = 11
         private const val DIGITS_LENGTH = 9
         private const val VALIDATION_LENGTH = 2
+
+        fun anonymous() = Cpf("")
 
         fun new(value: String): Result<Cpf> {
             return value
@@ -20,10 +20,18 @@ value class Cpf private constructor(val value: String) {
         }
 
         private fun String.validated(): Result<String> {
-            if (!hasValidLength()) { return failure(InvalidCpfException("must have '$LENGTH' length.")) }
-            if (!hasOnlyDigits()) { return failure(InvalidCpfException("must have only digits.")) }
-            if (isOnBlacklist()) { return failure(InvalidCpfException("blacklist cpf.")) }
-            if (!hasValidValidationCode()) { return failure(InvalidCpfException("invalid cpf.")) }
+            if (!hasValidLength()) {
+                return failure(InvalidCpfException("must have '$LENGTH' length."))
+            }
+            if (!hasOnlyDigits()) {
+                return failure(InvalidCpfException("must have only digits."))
+            }
+            if (isOnBlacklist()) {
+                return failure(InvalidCpfException("blacklist cpf."))
+            }
+            if (!hasValidValidationCode()) {
+                return failure(InvalidCpfException("invalid cpf."))
+            }
 
             return success(this)
         }
@@ -57,11 +65,13 @@ value class Cpf private constructor(val value: String) {
         }
 
         private fun calculateValidationDigit(digits: String): Int {
-            val calculatedValidator = 11 - digits
-                .map(Char::digitToInt)
-                .mapIndexed { index, digit -> (digits.length - index + 1) * digit }
-                .sum()
-                .mod(11)
+            val calculatedValidator =
+                11 -
+                    digits
+                        .map(Char::digitToInt)
+                        .mapIndexed { index, digit -> (digits.length - index + 1) * digit }
+                        .sum()
+                        .mod(11)
 
             return if (calculatedValidator < 10) calculatedValidator else 0
         }
