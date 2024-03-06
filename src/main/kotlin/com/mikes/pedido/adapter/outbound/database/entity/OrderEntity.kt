@@ -15,7 +15,7 @@ data class OrderEntity(
     val id: String,
     @Column(name = "numero")
     val number: Long,
-    @Column(name = "cliente_id", length = 11)
+    @Column(name = "cliente_id", length = 36)
     val customerId: String?,
     @Column(name = "preco")
     val price: BigDecimal,

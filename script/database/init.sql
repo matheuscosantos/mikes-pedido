@@ -11,7 +11,7 @@ CREATE TABLE cliente(
 CREATE TABLE pedido(
     id VARCHAR(36) PRIMARY KEY,
     numero BIGINT NOT NULL,
-    cliente_id VARCHAR(11),
+    cliente_id VARCHAR(36),
     preco NUMERIC(10, 2) NOT NULL,
     status VARCHAR(50) NOT NULL,
     criado_em TIMESTAMP NOT NULL,

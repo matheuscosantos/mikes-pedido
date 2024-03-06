@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+
   postgres:
     image: postgres:latest
     environment:
@@ -10,15 +11,37 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./database/script/create-db.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./script/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+
+  localstack:
+    image: localstack/localstack:3.2
+    ports:
+      - "127.0.0.1:4566:4566"
+      - "127.0.0.1:4510-4559:4510-4559"
+    environment:
+      SERVICES: sqs, sns
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_DEFAULT_REGION: us-east-2
+    volumes:
+      - ./script/localstack/init.sh:/etc/localstack/init/ready.d/init.sh
 
   app:
     build:
       context: .
     depends_on:
       - postgres
+      - redis
+      - localstack
     environment:
       AWS_REGION: us-east-2
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
       DB_HOST: postgres
       DB_PORT: 5432
       DB_NAME: pedido
@@ -26,12 +49,9 @@ services:
       DB_PASSWORD: 123
       SNS_ORDER_RECEIVED_ARN: arn:aws:sns:us-east-2:000000000000:pedido-recebido
       SNS_ORDER_CONFIRMED_ARN: arn:aws:sns:us-east-2:000000000000:pedido-confirmado
-      SQS_ORDER_PAYMENT_URL: http://localhost:4566/queue/pagamento-pedido
-      SQS_ORDER_PRODUCTION_URL: http://localhost:4566/queue/producao-pedido
+      SQS_ORDER_PAYMENT_URL: http://localstack:4566/000000000000/pagamento-pedido
+      SQS_ORDER_PRODUCTION_URL: http://localstack:4566/000000000000/producao-pedido
+      CLOUD_AWS_ENDPOINT: http://localstack:4566
+      REDIS_HOST: redis
     ports:
       - "8080:8080"
-
-  redis:
-    image: "redis:latest"
-    ports:
-      - "6379:6379"
