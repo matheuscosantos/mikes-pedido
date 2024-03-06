@@ -4,7 +4,7 @@ import com.mikes.pedido.adapter.outbound.database.entity.OrderEntity
 import com.mikes.pedido.adapter.outbound.database.entity.OrderItemEntity
 import com.mikes.pedido.adapter.outbound.database.jpa.OrderItemJpaRepository
 import com.mikes.pedido.adapter.outbound.database.jpa.OrderJpaRepository
-import com.mikes.pedido.application.core.domain.customer.valueobject.Cpf
+import com.mikes.pedido.application.core.domain.customer.valueobject.CustomerId
 import com.mikes.pedido.application.core.domain.order.Order
 import com.mikes.pedido.application.core.domain.order.OrderItem
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderId
@@ -45,11 +45,13 @@ class OrderDatabaseRepositoryTest {
 
         val orderDatabaseRepository = OrderDatabaseRepository(orderJpaRepository, orderItemJpaRepository)
 
+        val customerId = CustomerId.generate()
+
         val order =
             Order.new(
                 id = OrderId.new("92ce2145-defc-4bc9-9f77-e45e20b75024").getOrThrow(),
                 number = OrderNumber.new(1L).getOrThrow(),
-                cpf = Cpf.new("26777903003").getOrThrow(),
+                customerId = customerId,
                 items =
                     listOf(
                         OrderItem.new(
@@ -79,11 +81,13 @@ class OrderDatabaseRepositoryTest {
 
         val orderDatabaseRepository = OrderDatabaseRepository(orderJpaRepository, orderItemJpaRepository)
 
+        val customerId = CustomerId.generate()
+
         val orderEntity =
             OrderEntity(
                 id = "c3dc25a4-bdc6-49b5-9dd5-10d7418062b5",
                 number = 1L,
-                cpf = "26777903003",
+                customerId = customerId.value,
                 price = BigDecimal.valueOf(1),
                 status = "READY",
                 createdAt = date,
@@ -115,12 +119,14 @@ class OrderDatabaseRepositoryTest {
 
         val orderDatabaseRepository = OrderDatabaseRepository(orderJpaRepository, orderItemJpaRepository)
 
+        val customerId = CustomerId.generate()
+
         val orderId = OrderId.new("c3dc25a4-bdc6-49b5-9dd5-10d7418062b5")
         val orderEntity =
             OrderEntity(
                 id = "c3dc25a4-bdc6-49b5-9dd5-10d7418062b5",
                 number = 1L,
-                cpf = "26777903003",
+                customerId = customerId.value,
                 price = BigDecimal.valueOf(1),
                 status = "READY",
                 createdAt = date,

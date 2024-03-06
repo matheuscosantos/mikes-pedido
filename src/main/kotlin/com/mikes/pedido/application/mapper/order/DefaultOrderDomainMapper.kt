@@ -1,6 +1,6 @@
 package com.mikes.pedido.application.mapper.order
 
-import com.mikes.pedido.application.core.domain.customer.valueobject.Cpf
+import com.mikes.pedido.application.core.domain.customer.valueobject.CustomerId
 import com.mikes.pedido.application.core.domain.order.Order
 import com.mikes.pedido.application.core.domain.order.OrderItem
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderId
@@ -20,7 +20,7 @@ class DefaultOrderDomainMapper : OrderDomainMapper {
     override fun new(
         id: OrderId,
         orderNumber: OrderNumber,
-        nullableCpf: Cpf?,
+        nullableCustomerId: CustomerId?,
         items: List<OrderItem>,
         orderStatus: OrderStatus,
         createdAt: LocalDateTime,
@@ -29,7 +29,7 @@ class DefaultOrderDomainMapper : OrderDomainMapper {
         return Order.new(
             id,
             orderNumber,
-            nullableCpf,
+            nullableCustomerId,
             items,
             orderStatus,
             createdAt,
@@ -54,14 +54,14 @@ class DefaultOrderDomainMapper : OrderDomainMapper {
         with(orderOutboundResponse) {
             val id = OrderId.new(idValue).getOrElse { return failure(it) }
             val number = OrderNumber.new(numberValue).getOrElse { return failure(it) }
-            val cpf = cpfValue?.let { Cpf.new(cpfValue).getOrElse { return failure(it) } }
+            val customerId = customerIdValue?.let { CustomerId.new(customerIdValue).getOrElse { return failure(it) } }
             val items = items.map { new(it).getOrElse { e -> return failure(e) } }
             val status = OrderStatus.findByValue(orderStatusValue).getOrElse { e -> return failure(e) }
 
             return Order.new(
                 id,
                 number,
-                cpf,
+                customerId,
                 items,
                 status,
                 createdAt,

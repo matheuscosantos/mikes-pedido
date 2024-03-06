@@ -1,6 +1,6 @@
 package com.mikes.pedido.application.mapper.order
 
-import com.mikes.pedido.application.core.domain.customer.valueobject.Cpf
+import com.mikes.pedido.application.core.domain.customer.valueobject.CustomerId
 import com.mikes.pedido.application.core.domain.order.OrderItem
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderId
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderItemId
@@ -26,7 +26,7 @@ internal class DefaultOrderDomainMapperTest {
     fun `when mapping a order, expect attributes equality`() {
         val id = OrderId.new(UUID.randomUUID().toString()).getOrThrow()
         val orderNumber = OrderNumber.new(1).getOrThrow()
-        val cpf = Cpf.new("92979654078").getOrThrow()
+        val customerId = CustomerId.generate()
         val items =
             listOf(
                 OrderItem.new(
@@ -44,7 +44,7 @@ internal class DefaultOrderDomainMapperTest {
             DefaultOrderDomainMapper().new(
                 id,
                 orderNumber,
-                cpf,
+                customerId,
                 items,
                 orderStatus,
                 createdAt,
@@ -63,8 +63,8 @@ internal class DefaultOrderDomainMapperTest {
             )
 
             Assertions.assertEquals(
-                cpf,
-                this.cpf,
+                customerId,
+                this.customerId,
             )
 
             Assertions.assertEquals(
@@ -93,7 +93,7 @@ internal class DefaultOrderDomainMapperTest {
     fun `when mapping a order with OrderItemOutboundResponse, expect attributes equality`() {
         val id = UUID.randomUUID().toString()
         val number = 1L
-        val cpf = "92979654078"
+        val customerId = CustomerId.generate()
         val items =
             listOf(
                 OrderItemOutboundResponse(
@@ -114,7 +114,7 @@ internal class DefaultOrderDomainMapperTest {
                 OrderOutboundResponse(
                     id,
                     number,
-                    cpf,
+                    customerId.value,
                     items,
                     price,
                     orderStatus,
@@ -135,8 +135,8 @@ internal class DefaultOrderDomainMapperTest {
             )
 
             Assertions.assertEquals(
-                cpf,
-                this.cpf?.value,
+                customerId.value,
+                this.customerId?.value,
             )
 
             Assertions.assertEquals(

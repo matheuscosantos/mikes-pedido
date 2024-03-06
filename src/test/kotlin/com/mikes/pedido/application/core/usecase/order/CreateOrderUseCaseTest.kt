@@ -1,7 +1,7 @@
 package com.mikes.pedido.application.core.usecase.order
 
 import com.mikes.pedido.application.core.domain.customer.Customer
-import com.mikes.pedido.application.core.domain.customer.valueobject.Cpf
+import com.mikes.pedido.application.core.domain.customer.valueobject.CustomerId
 import com.mikes.pedido.application.core.domain.order.Order
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderId
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderPrice
@@ -24,7 +24,7 @@ import kotlin.Result.Companion.success
 internal class CreateOrderUseCaseTest {
     @Test
     fun `when creating order, expect to save and notify it`() {
-        val cpf = "92979654078"
+        val customerId = CustomerId.generate()
         val productId = ProductId.generate().value
         val quantity = 1L
 
@@ -32,7 +32,7 @@ internal class CreateOrderUseCaseTest {
 
         val orderRepository = mockOrderRepository()
         val orderDomainMapper = mockOrderDomainMapper(expectedOrder)
-        val findCustomerService = mockFindCustomerService(cpf)
+        val findCustomerService = mockFindCustomerService(customerId)
         val findProductService = mockFindProductService()
         val orderReceivedMessenger = mockOrderReceivedMessenger()
 
@@ -46,7 +46,7 @@ internal class CreateOrderUseCaseTest {
             )
 
         val request =
-            CreateOrderInboundRequest(cpf, listOf(CreateOrderItemInboundRequest(productId, quantity)))
+            CreateOrderInboundRequest(customerId.value, listOf(CreateOrderItemInboundRequest(productId, quantity)))
 
         createOrderUseCase.create(request)
             .getOrThrow()
@@ -68,9 +68,9 @@ internal class CreateOrderUseCaseTest {
             every { it.new(any(), any(), any()) } returns success(mockk())
         }
 
-    private fun mockFindCustomerService(cpfValue: String) =
+    private fun mockFindCustomerService(customerId: CustomerId) =
         mockk<FindCustomerService>().also {
-            every { it.find(any(), any()) } returns success(mockCustomer(cpfValue))
+            every { it.find(any()) } returns success(mockCustomer(customerId))
         }
 
     private fun mockFindProductService() =
@@ -83,9 +83,9 @@ internal class CreateOrderUseCaseTest {
             every { it.send(any()) } returns Unit
         }
 
-    private fun mockCustomer(cpfValue: String) =
+    private fun mockCustomer(customerId: CustomerId) =
         mockk<Customer>().also {
-            every { it.cpf } returns Cpf.new(cpfValue).getOrThrow()
+            every { it.id } returns customerId
         }
 
     private fun mockOrder() =

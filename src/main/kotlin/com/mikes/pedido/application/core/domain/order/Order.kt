@@ -1,6 +1,6 @@
 package com.mikes.pedido.application.core.domain.order
 
-import com.mikes.pedido.application.core.domain.customer.valueobject.Cpf
+import com.mikes.pedido.application.core.domain.customer.valueobject.CustomerId
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderId
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderNumber
 import com.mikes.pedido.application.core.domain.order.valueobject.OrderPrice
@@ -13,19 +13,18 @@ import kotlin.Result.Companion.success
 class Order private constructor(
     val id: OrderId,
     val number: OrderNumber,
-    val cpf: Cpf?,
+    val customerId: CustomerId?,
     val items: List<OrderItem>,
     val price: OrderPrice,
     val orderStatus: OrderStatus,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
 ) : Serializable {
-
     companion object {
         fun new(
             id: OrderId,
             number: OrderNumber,
-            cpf: Cpf?,
+            customerId: CustomerId?,
             items: List<OrderItem>,
             orderStatus: OrderStatus,
             createdAt: LocalDateTime,
@@ -33,7 +32,7 @@ class Order private constructor(
         ): Result<Order> {
             val orderPrice = calculatePrice(items).getOrElse { return failure(it) }
 
-            return success(Order(id, number, cpf, items, orderPrice, orderStatus, createdAt, updatedAt))
+            return success(Order(id, number, customerId, items, orderPrice, orderStatus, createdAt, updatedAt))
         }
 
         private fun calculatePrice(orderItems: List<OrderItem>): Result<OrderPrice> {
@@ -48,7 +47,7 @@ class Order private constructor(
         return Order(
             id,
             number,
-            cpf,
+            customerId,
             items,
             price,
             orderStatus,

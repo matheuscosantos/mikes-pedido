@@ -14,10 +14,9 @@ internal class CreateCustomerUseCaseTest {
     @Test
     fun `when creating a customer with success, expect creation`() {
         val cpf = "92979654078"
-        val exists = false
         val expectedCustomer = mockCustomer(cpf)
 
-        val customerRepository = mockCustomerRepository(exists)
+        val customerRepository = mockCustomerRepository()
         val customerDomainMapper = mockCustomerDomainMapper(expectedCustomer, cpf)
 
         val createCustomerUseCase = CreateCustomerUseCase(customerRepository, customerDomainMapper)
@@ -29,9 +28,8 @@ internal class CreateCustomerUseCaseTest {
         Assertions.assertEquals(expectedCustomer, customer)
     }
 
-    private fun mockCustomerRepository(exists: Boolean) =
+    private fun mockCustomerRepository() =
         mockk<CustomerRepository>().also {
-            every { it.exists(any()) } returns exists
             every { it.save(any()) } returns mockk()
         }
 

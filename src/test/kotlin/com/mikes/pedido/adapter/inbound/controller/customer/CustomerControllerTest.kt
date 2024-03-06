@@ -92,8 +92,9 @@ class CustomerControllerTest {
                 updatedAt = date,
                 name = "teste",
             )
-        every { findCustomerService.find("123.456.789-00", true) } returns customer
-        val response = customerController.find("123.456.789-00", true)
+
+        every { findCustomerService.find(customerId.value) } returns customer
+        val response = customerController.find(customerId.value)
         assertEquals(HttpStatus.OK, response.statusCode)
         assertEquals(customerDto, response.body)
     }

@@ -15,8 +15,8 @@ data class OrderEntity(
     val id: String,
     @Column(name = "numero")
     val number: Long,
-    @Column(name = "cpf", length = 11)
-    val cpf: String?,
+    @Column(name = "cliente_id", length = 11)
+    val customerId: String?,
     @Column(name = "preco")
     val price: BigDecimal,
     @Column(name = "status", length = 50)
@@ -32,7 +32,7 @@ data class OrderEntity(
                 return OrderEntity(
                     id.value,
                     number.value,
-                    cpf?.value,
+                    customerId?.value,
                     price.value,
                     orderStatus.name,
                     createdAt,
@@ -46,7 +46,7 @@ data class OrderEntity(
         return OrderOutboundResponse(
             id,
             number,
-            cpf,
+            customerId,
             items,
             price,
             status,

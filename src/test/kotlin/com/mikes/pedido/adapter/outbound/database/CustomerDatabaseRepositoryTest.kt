@@ -12,7 +12,6 @@ import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
-import java.util.Optional
 
 class CustomerDatabaseRepositoryTest {
     @Test
@@ -38,30 +37,6 @@ class CustomerDatabaseRepositoryTest {
         val result = customerRepository.save(customer)
 
         assertEquals(savedCustomerEntity.toOutbound(), result)
-    }
-
-    @Test
-    fun `test find a customer`() {
-        val customerJpaRepository = mockk<CustomerJpaRepository>()
-        val customerRepository = CustomerDatabaseRepository(customerJpaRepository)
-
-        val cpf = Cpf.new("16223596073").getOrThrow()
-        val active = true
-        val customerEntity =
-            CustomerEntity(
-                CustomerId.generate().value,
-                cpf = "16223596073",
-                name = "John Doe",
-                email = "john.doe@example.com",
-                createdAt = date,
-                updatedAt = date,
-            )
-
-        every { customerJpaRepository.findByCpfAndActive(cpf.value, active) } returns Optional.of(customerEntity)
-
-        val result = customerRepository.find(cpf, active)
-
-        assertEquals(customerEntity.toOutbound(), result)
     }
 
     companion object {

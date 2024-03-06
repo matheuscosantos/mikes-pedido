@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 data class OrderDto(
     val id: String,
     val number: Long,
-    val cpf: String?,
+    val customerId: String?,
     val orderItems: List<OrderItemDto>,
     val price: BigDecimal,
     val orderStatus: String,
@@ -21,7 +21,7 @@ data class OrderDto(
                 OrderDto(
                     id.value,
                     number.value,
-                    cpf?.value,
+                    customerId?.value,
                     items.map { OrderItemDto.from(it) },
                     price.value,
                     orderStatus.name,
