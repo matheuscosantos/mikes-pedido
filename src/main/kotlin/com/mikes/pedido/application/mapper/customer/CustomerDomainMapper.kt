@@ -10,6 +10,7 @@ interface CustomerDomainMapper {
     fun new(
         createCustomerInboundRequest: CreateCustomerInboundRequest,
         customerId: CustomerId,
+        active: Boolean,
         createdAt: LocalDateTime,
         updatedAt: LocalDateTime,
     ): Result<Customer>

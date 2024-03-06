@@ -14,6 +14,7 @@ class DefaultCustomerDomainMapper : CustomerDomainMapper {
     override fun new(
         createCustomerInboundRequest: CreateCustomerInboundRequest,
         customerId: CustomerId,
+        active: Boolean,
         createdAt: LocalDateTime,
         updatedAt: LocalDateTime,
     ): Result<Customer> =
@@ -22,7 +23,7 @@ class DefaultCustomerDomainMapper : CustomerDomainMapper {
             val name = PersonName.new(name).getOrElse { return failure(it) }
             val email = Email.new(email).getOrElse { return failure(it) }
 
-            return Customer.new(customerId, cpf, name, email, createdAt, updatedAt)
+            return Customer.new(customerId, cpf, name, email, active, createdAt, updatedAt)
         }
 
     override fun new(customerOutboundResponse: CustomerOutboundResponse): Result<Customer> =
@@ -32,6 +33,6 @@ class DefaultCustomerDomainMapper : CustomerDomainMapper {
             val name = PersonName.new(name).getOrElse { return failure(it) }
             val email = Email.new(email).getOrElse { return failure(it) }
 
-            return Customer.new(id, cpf, name, email, createdAt, updatedAt)
+            return Customer.new(id, cpf, name, email, active, createdAt, updatedAt)
         }
 }

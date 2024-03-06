@@ -8,6 +8,7 @@ import com.mikes.pedido.application.core.domain.customer.valueobject.CustomerId
 import com.mikes.pedido.application.core.domain.customer.valueobject.Email
 import com.mikes.pedido.application.core.domain.customer.valueobject.PersonName
 import com.mikes.pedido.application.port.inbound.customer.CreateCustomerService
+import com.mikes.pedido.application.port.inbound.customer.DeleteCustomerService
 import com.mikes.pedido.application.port.inbound.customer.FindCustomerService
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -26,6 +27,9 @@ class CustomerControllerTest {
 
     @MockK
     private lateinit var findCustomerService: FindCustomerService
+
+    @MockK
+    private lateinit var deleteCustomerService: DeleteCustomerService
 
     @InjectMockKs
     private lateinit var customerController: CustomerController
@@ -46,6 +50,7 @@ class CustomerControllerTest {
                 customerId,
                 Cpf.new("16223596073").getOrThrow(),
                 email = Email.new("teste@teste.com").getOrThrow(),
+                active = true,
                 createdAt = date,
                 updatedAt = date,
                 personName = PersonName.new("teste").getOrThrow(),
@@ -78,6 +83,7 @@ class CustomerControllerTest {
                 customerId,
                 Cpf.new("16223596073").getOrThrow(),
                 email = Email.new("teste@teste.com").getOrThrow(),
+                active = true,
                 createdAt = date,
                 updatedAt = date,
                 personName = PersonName.new("teste").getOrThrow(),

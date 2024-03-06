@@ -18,6 +18,8 @@ data class CustomerEntity(
     val name: String,
     @Column(name = "email", length = 255)
     val email: String,
+    @Column(name = "ativo")
+    val active: Boolean,
     @Column(name = "criado_em")
     val createdAt: LocalDateTime,
     @Column(name = "atualizado_em")
@@ -26,7 +28,7 @@ data class CustomerEntity(
     companion object {
         fun from(customer: Customer): CustomerEntity =
             with(customer) {
-                return CustomerEntity(id.value, cpf.value, name.value, email.value, createdAt, updatedAt)
+                return CustomerEntity(id.value, cpf.value, name.value, email.value, active, createdAt, updatedAt)
             }
     }
 
@@ -36,6 +38,7 @@ data class CustomerEntity(
             cpf,
             name,
             email,
+            active,
             createdAt,
             updatedAt,
         )

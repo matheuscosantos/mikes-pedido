@@ -7,5 +7,8 @@ import com.mikes.pedido.application.port.outbound.customer.dto.CustomerOutboundR
 interface CustomerRepository {
     fun save(customer: Customer): CustomerOutboundResponse
 
-    fun find(customerId: CustomerId): CustomerOutboundResponse?
+    fun find(
+        customerId: CustomerId,
+        active: Boolean,
+    ): CustomerOutboundResponse?
 }

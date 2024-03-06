@@ -7,6 +7,7 @@ data class CustomerOutboundResponse(
     val cpf: String,
     val name: String,
     val email: String,
+    val active: Boolean,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
 )

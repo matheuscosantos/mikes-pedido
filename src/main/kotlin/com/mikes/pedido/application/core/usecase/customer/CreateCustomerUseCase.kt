@@ -28,8 +28,9 @@ class CreateCustomerUseCase(
     }
 
     private fun CreateCustomerInboundRequest.newCustomer(): Result<Customer> {
+        val active = true
         val now = LocalDateTime.now()
-        return customerDomainMapper.new(this, CustomerId.generate(), now, now)
+        return customerDomainMapper.new(this, CustomerId.generate(), active, now, now)
     }
 
     private fun CustomerOutboundResponse.toCustomer(): Result<Customer> {

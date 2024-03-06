@@ -33,7 +33,7 @@ internal class FindCustomerUseCaseTest {
             findCustomerService.find(customerId.value)
                 .getOrThrow()
 
-        verify { customerRepository.find(any()) }
+        verify { customerRepository.find(any(), any()) }
         verify { customerDomainMapper.new(eq(customerOutboundResponse)) }
 
         Assertions.assertEquals(expectedCustomer, actualCustomer)
@@ -41,7 +41,7 @@ internal class FindCustomerUseCaseTest {
 
     private fun mockCustomerRepository(nullableCustomerOutboundResponse: CustomerOutboundResponse?) =
         mockk<CustomerRepository>().also {
-            every { it.find(any<CustomerId>()) } returns nullableCustomerOutboundResponse
+            every { it.find(any<CustomerId>(), any()) } returns nullableCustomerOutboundResponse
         }
 
     private fun mockCustomerDomainMapper(customerResult: Result<Customer>) =

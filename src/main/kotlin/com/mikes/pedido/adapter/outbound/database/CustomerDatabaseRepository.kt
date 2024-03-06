@@ -16,8 +16,11 @@ class CustomerDatabaseRepository(
             .toOutbound()
     }
 
-    override fun find(customerId: CustomerId): CustomerOutboundResponse? {
-        return customerJpaRepository.findById(customerId.value)
+    override fun find(
+        customerId: CustomerId,
+        active: Boolean,
+    ): CustomerOutboundResponse? {
+        return customerJpaRepository.findByIdAndActive(customerId.value, active)
             .map { it.toOutbound() }
             .getOrNull()
     }

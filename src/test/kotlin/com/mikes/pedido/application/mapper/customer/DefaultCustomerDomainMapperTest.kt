@@ -14,13 +14,14 @@ internal class DefaultCustomerDomainMapperTest {
         val cpf = "92979654078"
         val name = "name"
         val email = "email@email.com"
+        val active = true
         val createdAt = now()
         val updatedAt = now()
 
         val customerDomainMapper = DefaultCustomerDomainMapper()
 
         val customer =
-            customerDomainMapper.new(CreateCustomerInboundRequest(cpf, name, email), id, createdAt, updatedAt)
+            customerDomainMapper.new(CreateCustomerInboundRequest(cpf, name, email), id, active, createdAt, updatedAt)
                 .getOrThrow()
 
         with(customer) {
@@ -39,13 +40,14 @@ internal class DefaultCustomerDomainMapperTest {
         val cpf = "92979654078"
         val name = "name"
         val email = "email@email.com"
+        val active = true
         val createdAt = now()
         val updatedAt = now()
 
         val customerDomainMapper = DefaultCustomerDomainMapper()
 
         val customer =
-            customerDomainMapper.new(CustomerOutboundResponse(id, cpf, name, email, createdAt, updatedAt))
+            customerDomainMapper.new(CustomerOutboundResponse(id, cpf, name, email, active, createdAt, updatedAt))
                 .getOrThrow()
 
         with(customer) {

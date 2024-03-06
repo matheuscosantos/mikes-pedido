@@ -38,7 +38,7 @@ internal class CreateCustomerUseCaseTest {
         cpf: String,
     ) = mockk<CustomerDomainMapper>().also {
         every { it.new(any()) } returns success(customer)
-        every { it.new(any(), any(), any(), any()) } returns success(mockCustomer(cpf))
+        every { it.new(any(), any(), any(), any(), any()) } returns success(mockCustomer(cpf))
     }
 
     private fun mockCustomer(cpfValue: String) =

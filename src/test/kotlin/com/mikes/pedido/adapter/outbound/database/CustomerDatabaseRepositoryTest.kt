@@ -24,6 +24,7 @@ class CustomerDatabaseRepositoryTest {
                 CustomerId.generate(),
                 Cpf.new("16223596073").getOrThrow(),
                 email = Email.new("teste@teste.com").getOrThrow(),
+                active = true,
                 createdAt = date,
                 updatedAt = date,
                 personName = PersonName.new("teste").getOrThrow(),

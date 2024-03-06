@@ -21,7 +21,7 @@ class FindCustomerUseCase(
                 .getOrElse { return failure(it) }
 
         val customerOutboundResponse =
-            customerRepository.find(customerId)
+            customerRepository.find(customerId, active = true)
                 ?: return failure(CustomerNotFoundException("CustomerId='${customerId.value}' not found."))
 
         return customerOutboundResponse

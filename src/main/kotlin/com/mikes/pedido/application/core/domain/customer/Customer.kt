@@ -12,6 +12,7 @@ class Customer private constructor(
     val cpf: Cpf,
     val name: PersonName,
     val email: Email,
+    val active: Boolean,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
 ) {
@@ -21,8 +22,21 @@ class Customer private constructor(
             cpf: Cpf,
             personName: PersonName,
             email: Email,
+            active: Boolean,
             createdAt: LocalDateTime,
             updatedAt: LocalDateTime,
-        ): Result<Customer> = success(Customer(id, cpf, personName, email, createdAt, updatedAt))
+        ): Result<Customer> = success(Customer(id, cpf, personName, email, active, createdAt, updatedAt))
+    }
+
+    fun updatedToDeletion(): Customer {
+        return Customer(
+            id,
+            Cpf.anonymous(),
+            PersonName.anonymous(),
+            Email.anonymous(),
+            active = false,
+            createdAt,
+            LocalDateTime.now(),
+        )
     }
 }
