@@ -2,7 +2,6 @@ package com.mikes.pedido.application.core.usecase.customer
 
 import com.mikes.pedido.application.core.domain.customer.Customer
 import com.mikes.pedido.application.core.domain.customer.valueobject.CustomerId
-import com.mikes.pedido.application.core.usecase.exception.customer.CustomerAlreadyExistsException
 import com.mikes.pedido.application.core.usecase.exception.customer.InvalidCustomerStateException
 import com.mikes.pedido.application.mapper.customer.CustomerDomainMapper
 import com.mikes.pedido.application.port.inbound.customer.CreateCustomerService
@@ -22,10 +21,6 @@ class CreateCustomerUseCase(
             createCustomerInboundRequest
                 .newCustomer()
                 .getOrElse { return failure(it) }
-
-        if (customerRepository.exists(customer.cpf)) {
-            return failure(CustomerAlreadyExistsException("Cpf already exists: '${customer.cpf.value}'."))
-        }
 
         return customerRepository.save(customer)
             .toCustomer()

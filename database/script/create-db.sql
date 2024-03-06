@@ -1,8 +1,8 @@
 CREATE TABLE cliente(
     id VARCHAR(36) PRIMARY KEY,
-    cpf VARCHAR(11) NOT NULL,
+    cpf VARCHAR(11) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
     nome VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
     ativo BOOLEAN NOT NULL,
     criado_em TIMESTAMP NOT NULL,
     atualizado_em TIMESTAMP NOT NULL

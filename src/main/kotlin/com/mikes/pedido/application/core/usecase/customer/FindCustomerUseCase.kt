@@ -1,7 +1,7 @@
 package com.mikes.pedido.application.core.usecase.customer
 
 import com.mikes.pedido.application.core.domain.customer.Customer
-import com.mikes.pedido.application.core.domain.customer.valueobject.Cpf
+import com.mikes.pedido.application.core.domain.customer.valueobject.CustomerId
 import com.mikes.pedido.application.core.usecase.exception.customer.CustomerNotFoundException
 import com.mikes.pedido.application.core.usecase.exception.customer.InvalidCustomerStateException
 import com.mikes.pedido.application.mapper.customer.CustomerDomainMapper
@@ -15,17 +15,14 @@ class FindCustomerUseCase(
     private val customerRepository: CustomerRepository,
     private val customerDomainMapper: CustomerDomainMapper,
 ) : FindCustomerService {
-    override fun find(
-        cpfValue: String,
-        active: Boolean,
-    ): Result<Customer> {
-        val cpf =
-            Cpf.new(cpfValue)
+    override fun find(customerIdValue: String): Result<Customer> {
+        val customerId =
+            CustomerId.new(customerIdValue)
                 .getOrElse { return failure(it) }
 
         val customerOutboundResponse =
-            customerRepository.find(cpf, active)
-                ?: return failure(CustomerNotFoundException("Cpf='${cpf.value}' not found for active='$active'."))
+            customerRepository.find(customerId)
+                ?: return failure(CustomerNotFoundException("CustomerId='${customerId.value}' not found."))
 
         return customerOutboundResponse
             .toCustomer()

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -30,12 +29,11 @@ class CustomerController(
             .getOrThrow()
     }
 
-    @GetMapping("/{cpfValue}")
+    @GetMapping("/{customerIdValue}")
     fun find(
-        @PathVariable cpfValue: String,
-        @RequestParam(required = false, defaultValue = "true") active: Boolean,
+        @PathVariable customerIdValue: String,
     ): ResponseEntity<CustomerDto> {
-        return findCustomerService.find(cpfValue, active)
+        return findCustomerService.find(customerIdValue)
             .map { CustomerDto.from(it) }
             .map { ResponseEntity.ok(it) }
             .getOrThrow()
