@@ -2,6 +2,8 @@
 
 Este repositório funcionalidades relacionadas ao sistema de pedidos da empresa "Mikes". Aqui está um resumo do que cada classe faz:
 
+[Desenho da arquitetura](https://drive.google.com/file/d/12gofNmXk8W2QnhxiFWCI4OmvVH6Vsgun/view?usp=drive_link)
+
 ## CustomerController
 - Gerencia operações relacionadas a clientes, como criar, encontrar e excluir clientes.
 - Endpoints:
