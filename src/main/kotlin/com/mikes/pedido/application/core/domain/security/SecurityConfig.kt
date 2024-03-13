@@ -7,22 +7,22 @@ import org.springframework.security.config.web.server.ServerHttpSecurity.HeaderS
 import org.springframework.security.web.server.SecurityWebFilterChain
 import java.time.Duration
 
-@Bean
-fun springSecurityFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain? {
-    http
-        .headers { headers: HeaderSpec ->
-            headers
-                .contentTypeOptions { cto ->
-                    cto.disable()
-                }
-                .hsts { hsts ->
-                    hsts.maxAge(Duration.ofSeconds(31536000))
-                    hsts.includeSubdomains(true)
-                }
-                .contentSecurityPolicy { contentSecurityPolicy: ContentSecurityPolicySpec ->
-                    contentSecurityPolicy
-                        .policyDirectives("script-src 'self'")
-                }
-        }
-    return http.build()
-}
+//@Bean
+//fun springSecurityFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain? {
+//    http
+//        .headers { headers: HeaderSpec ->
+//            headers
+//                .contentTypeOptions { cto ->
+//                    cto.disable()
+//                }
+//                .hsts { hsts ->
+//                    hsts.maxAge(Duration.ofSeconds(31536000))
+//                    hsts.includeSubdomains(true)
+//                }
+//                .contentSecurityPolicy { contentSecurityPolicy: ContentSecurityPolicySpec ->
+//                    contentSecurityPolicy
+//                        .policyDirectives("script-src 'self'")
+//                }
+//        }
+//    return http.build()
+//}
