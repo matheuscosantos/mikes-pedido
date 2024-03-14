@@ -1,28 +1,38 @@
 package com.mikes.pedido.application.core.domain.security
 
 import org.springframework.context.annotation.Bean
-import org.springframework.security.config.web.server.ServerHttpSecurity
-import org.springframework.security.config.web.server.ServerHttpSecurity.HeaderSpec
-import org.springframework.security.config.web.server.ServerHttpSecurity.HeaderSpec.ContentSecurityPolicySpec
-import org.springframework.security.web.server.SecurityWebFilterChain
-import java.time.Duration
+import org.springframework.context.annotation.Configuration
+import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.web.SecurityFilterChain
 
-//@Bean
-//fun springSecurityFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain? {
-//    http
-//        .headers { headers: HeaderSpec ->
-//            headers
-//                .contentTypeOptions { cto ->
-//                    cto.disable()
-//                }
-//                .hsts { hsts ->
-//                    hsts.maxAge(Duration.ofSeconds(31536000))
-//                    hsts.includeSubdomains(true)
-//                }
-//                .contentSecurityPolicy { contentSecurityPolicy: ContentSecurityPolicySpec ->
-//                    contentSecurityPolicy
-//                        .policyDirectives("script-src 'self'")
-//                }
-//        }
-//    return http.build()
-//}
+@Configuration
+@EnableWebSecurity
+class SecurityConfig {
+
+    @Bean
+    fun allowAllSecurityFilterChain(http: HttpSecurity): SecurityFilterChain {
+        http
+            .authorizeHttpRequests { authorize ->
+                authorize
+                    .requestMatchers("/**").permitAll() // Permite acesso a todos os endpoints
+            }
+            // Configurações de cabeçalho adicionadas aqui
+            .headers { headers ->
+                headers
+                    .contentTypeOptions { cto ->
+                        cto.disable()
+                    }
+                    .httpStrictTransportSecurity { hsts ->
+                        hsts.maxAgeInSeconds(31536000)
+                        hsts.includeSubDomains(true)
+                    }
+                    .contentSecurityPolicy { contentSecurityPolicy ->
+                        contentSecurityPolicy
+                            .policyDirectives("script-src 'self'")
+                    }
+            }
+
+        return http.build()
+    }
+}

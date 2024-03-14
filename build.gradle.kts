@@ -95,8 +95,10 @@ task("behaviorTest") {
             classpath = configurations["cucumberRuntime"] + sourceSets.main.get().output + sourceSets.test.get().output
             args =
                 listOf(
-                    "--plugin", "pretty",
-                    "--glue", "classpath:cucumber",
+                    "--plugin",
+                    "pretty",
+                    "--glue",
+                    "classpath:cucumber",
                     "src/test/resources/cucumber",
                 )
         }
